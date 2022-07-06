@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" th:href="@{/styles.css}" />
+        <title>Создание туриста</title>
+    </head>
+    <body>
+        <h1>Создание туриста</h1>
+        <h3>
+            <a href="http://localhost:8080/">назад</a>
+        </h3>
+        <form method="post" th:object="${user}">
+            <div>
+                <label for="name">Имя: </label>
+                <input type="text" th:field="*{name}">
+                <span class="validationError">*</span>
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('name')}"
+                      th:errors="*{name}">name
+                </span>
+            </div>
+            <div>
+                <label for="login">Логин: </label>
+                <input type="text" th:field="*{login}">
+                <span class="validationError">*</span>
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('login')}"
+                      th:errors="*{login}">login
+                </span>
+                <span class="validationError" th:if="*{loginIsEmpty}">Указанный логин занят.</span>
+            </div>
+            <div>
+                <label for="password">Пароль: </label>
+                <input type="text" th:field="*{password}">
+                <span class="validationError">*</span>
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('password')}"
+                      th:errors="*{password}">password
+                </span>
+            </div>
+            <div>
+                <label for="notes">Примечания: </label>
+                <input type="text" th:field="*{notes}">
+            </div>
+            <div>
+                <label for="phone_number">Номер телефона: </label>
+                <input type="text" th:field="*{phone_number}">
+                <span class="validationError">*</span>
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('phone_number')}"
+                      th:errors="*{phone_number}">phone_number
+                </span>
+            </div>
+            <h3 class="info">Поля со * обязательны для заполнения</h3>
+            <div>
+                <button>создать</button>
+            </div>
+        </form>
+    </body>
+</html>
