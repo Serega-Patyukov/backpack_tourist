@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 // Класс поход
@@ -13,15 +14,13 @@ public class Hike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long hikeId;
+    private long id;
     private String name;
     private LocalDate date;
 
-    @OneToMany(mappedBy = "hikeId", cascade = CascadeType.ALL)
-    private List<Equipment> equipmentList;   // Список снаряжения
-    private String notes;   // Примечания
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinColumn(name = "hike_id")
+    private List<Equipment> equipmentList = new ArrayList<>();   // Список снаряжения
 
-    @ManyToOne
-    @JoinColumn(name = "login", nullable = false)
-    private User userLogin;
+    private String notes;   // Примечания
 }

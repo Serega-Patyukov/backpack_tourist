@@ -13,7 +13,7 @@ public class Equipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @NotNull
     @Size(min = 1, message = "Введите корректно имя")
@@ -24,8 +24,4 @@ public class Equipment {
 
     private double weight;   // Масса
     private String notes;   // Примечания
-
-    @ManyToOne
-    @JoinColumn(name = "hikeId", nullable = false)
-    private Hike hikeId;
 }

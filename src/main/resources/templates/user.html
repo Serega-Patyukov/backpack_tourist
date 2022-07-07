@@ -1,0 +1,39 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Страница туриста</title>
+  </head>
+  <body>
+    <h1>Страница туриста</h1>
+    <div>тут приветствие от админа</div>
+    <h3>
+        <a href="http://localhost:8080/"><button>создать поход</button></a>
+    </h3>
+    <h3>
+        <a href="http://localhost:8080/"><button>удалить поход по id</button></a>
+    </h3>
+    <h3>
+        <a href="http://localhost:8080/"><button>редактировать поход по id</button></a>
+    </h3>
+    <h3>
+        <a href="http://localhost:8080/"><button>выход</button></a>
+    </h3>
+    <h3>Список походов:</h3>
+    <div th:object="${user}">
+        <span class="validationError" th:if="*{getHikeList().size() == 0}">в походы не ходил</span>
+        <div th:each="hike : *{getHikeList()}">
+            <span th:text="${hike.getId()}"></span>
+            <span> - </span>
+            <span th:text="${hike.getName()}"></span>
+            <div th:each="equipment : ${hike.getEquipmentList()}">
+                <span th:text="${equipment}"></span>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

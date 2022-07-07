@@ -35,7 +35,7 @@ public class AddUserController {
         if (errors.hasErrors()) return "addUser";
 
         if (userService.existsById(user.getLogin())) {
-            user.setLoginIsEmpty(true);
+            user.setError(true);
             return "addUser";
         }
 
@@ -43,5 +43,4 @@ public class AddUserController {
 
         return "redirect:/";
     }
-
 }
