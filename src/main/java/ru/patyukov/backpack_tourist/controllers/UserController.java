@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import ru.patyukov.backpack_tourist.model.User;
 import ru.patyukov.backpack_tourist.model.UserLogPas;
 import ru.patyukov.backpack_tourist.services.UserService;
@@ -24,6 +25,12 @@ public class UserController {
         if (userLogPas.getLogin() == null) return "redirect:/login";
 
         return "user";
+    }
+
+    @GetMapping("/exit")
+    public String userExit(SessionStatus sessionStatus) {
+        sessionStatus.setComplete();
+        return "redirect:/";
     }
 
     @ModelAttribute(name = "user")

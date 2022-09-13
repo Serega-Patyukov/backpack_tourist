@@ -33,7 +33,6 @@ public class User {
     private boolean isError = false;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    //@JoinColumn(name = "user_id")
     private List<Hike> hikeList = new ArrayList<>();   // Список походов
 
     @NotNull

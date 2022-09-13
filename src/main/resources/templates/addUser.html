@@ -44,10 +44,6 @@
                 </span>
             </div>
             <div>
-                <label for="notes">Примечания: </label>
-                <input type="text" th:field="*{notes}">
-            </div>
-            <div>
                 <label for="phoneNumber">Номер телефона: </label>
                 <input type="text" th:field="*{phoneNumber}">
                 <span class="validationError">*</span>
@@ -55,6 +51,10 @@
                       th:if="${#fields.hasErrors('phoneNumber')}"
                       th:errors="*{phoneNumber}">phoneNumber
                 </span>
+            </div>
+            <div>
+                <label for="notes">Примечания: </label>
+                <textarea th:field="*{notes}"></textarea>
             </div>
             <h3 class="info">Поля со * обязательны для заполнения</h3>
             <div>
