@@ -8,6 +8,8 @@ import javax.validation.constraints.Size;
 @Data
 public class UserLogPas {
 
+    private long id;
+
     @NotNull
     @Size(min = 3, message = "Введите корректно логин. Минимум 3 символа.")
     private String login;

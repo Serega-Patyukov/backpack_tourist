@@ -21,11 +21,11 @@ public class Hike {
     @NotNull
     @Size(min = 3, message = "Введите корректно имя. Минимум 3 символа.")
     private String name;
-    private String dateStart;
-    private String dateFinish;
+    private String dateStart = "";
+    private String dateFinish = "";
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Equipment> equipmentList = new ArrayList<>();   // Список снаряжения
 
-    private String notes;   // Примечания
+    private String notes = "";   // Примечания
 }

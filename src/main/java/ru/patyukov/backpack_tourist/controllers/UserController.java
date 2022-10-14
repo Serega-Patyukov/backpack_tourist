@@ -2,13 +2,11 @@ package ru.patyukov.backpack_tourist.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import ru.patyukov.backpack_tourist.model.User;
 import ru.patyukov.backpack_tourist.model.UserLogPas;
+import ru.patyukov.backpack_tourist.services.HikeService;
 import ru.patyukov.backpack_tourist.services.UserService;
 
 @Controller
@@ -19,11 +17,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HikeService hikeService;
+
     @GetMapping
     public String viewUser(UserLogPas userLogPas) {
-
         if (userLogPas.getLogin() == null) return "redirect:/login";
-
         return "user";
     }
 
@@ -40,5 +39,16 @@ public class UserController {
             User user = userService.findById(userLogPas.getLogin());   //TODO тут нужно сделать проверку
             return user;
         }
+    }
+
+    @PostMapping
+    public String openHike(UserLogPas userLogPas, long id) {
+        if (userLogPas.getLogin() == null) {
+            return "redirect:/user";
+        } else if (!hikeService.existsById(id, userLogPas.getLogin())) {
+            return "redirect:/user";
+        }
+        userLogPas.setId(id);
+        return "redirect:/hike";
     }
 }

@@ -36,10 +36,10 @@ public class User {
     private List<Hike> hikeList = new ArrayList<>();   // Список походов
 
     @NotNull
-    @Pattern(regexp = "^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])$" ,
+    @Pattern(regexp = "^((([+][7])|[8])[0-9]{10})$" ,
             message = "Введите корректно номер телефона. Должно быть 11 цифр.")
     @Column(name = "phone_number")
     private String phoneNumber;   // Номер телефона
 
-    private String notes;   // Примечания
+    private String notes = "";   // Примечания
 }

@@ -34,7 +34,7 @@ public class AddHikeController {
 
         if (errors.hasErrors()) return "addHike";
 
-        hikeService.save(hike, userLogPas);
+        hikeService.save(hike, userLogPas.getLogin());
         return "redirect:/user";
     }
 }

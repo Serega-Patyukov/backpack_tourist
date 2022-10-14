@@ -10,19 +10,20 @@
   </head>
   <body>
     <h1>Страница туриста</h1>
-    <div>тут приветствие от админа</div>
+    <div>тут будет приветствие от админа</div>
     <h3>
         <a href="http://localhost:8080/addHike"><button>создать поход</button></a>
     </h3>
     <h3>
-        <a href="http://localhost:8080/"><button>удалить поход по id</button></a>
-    </h3>
-    <h3>
-        <a href="http://localhost:8080/"><button>редактировать поход по id</button></a>
-    </h3>
-    <h3>
         <a href="http://localhost:8080/user/exit"><button>выход</button></a>
     </h3>
+    <form method="post">
+        <div>
+            <span>Укажите id похода: </span>
+            <input name="id" type="number" min="1" max="9223372036854775807" required>
+            <button>просмотр</button>
+        </div>
+    </form>
     <h3>Список походов:</h3>
     <div th:object="${user}">
         <span class="validationError" th:if="*{getHikeList().size() == 0}">в походы не ходил</span>
@@ -30,6 +31,8 @@
             <span th:text="${hike.getId()}"></span>
             <span> - </span>
             <span th:text="${hike.getName()}"></span>
+            <span>. Начало - </span> <span th:text="${hike.getDateStart()}"></span>
+            <span>. Конец - </span> <span th:text="${hike.getDateFinish()}"></span>
             <div th:each="equipment : ${hike.getEquipmentList()}">
                 <span th:text="${equipment}"></span>
             </div>
