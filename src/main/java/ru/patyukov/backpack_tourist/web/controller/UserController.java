@@ -1,4 +1,4 @@
-package ru.patyukov.backpack_tourist.controllers;
+package ru.patyukov.backpack_tourist.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import ru.patyukov.backpack_tourist.model.User;
 import ru.patyukov.backpack_tourist.model.UserLogPas;
-import ru.patyukov.backpack_tourist.services.HikeService;
-import ru.patyukov.backpack_tourist.services.UserService;
+import ru.patyukov.backpack_tourist.service.HikeService;
+import ru.patyukov.backpack_tourist.service.UserService;
 
 @Controller
 @RequestMapping("/user")

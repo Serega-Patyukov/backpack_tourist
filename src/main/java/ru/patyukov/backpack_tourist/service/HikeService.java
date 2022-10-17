@@ -1,10 +1,9 @@
-package ru.patyukov.backpack_tourist.services;
+package ru.patyukov.backpack_tourist.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.patyukov.backpack_tourist.model.Hike;
 import ru.patyukov.backpack_tourist.model.User;
-import ru.patyukov.backpack_tourist.model.UserLogPas;
 import ru.patyukov.backpack_tourist.repository.UserRepository;
 
 import java.util.List;

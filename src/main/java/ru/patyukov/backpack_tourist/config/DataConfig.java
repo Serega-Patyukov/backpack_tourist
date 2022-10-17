@@ -5,7 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.patyukov.backpack_tourist.model.User;
-import ru.patyukov.backpack_tourist.services.UserService;
+import ru.patyukov.backpack_tourist.service.UserService;
 
 @Configuration
 public class DataConfig {
