@@ -14,7 +14,7 @@
         <h3>
             <a href="http://localhost:8080/"><button>назад</button></a>
         </h3>
-        <form method="post" th:object="${user}">
+        <form method="post" th:object="${userRequest}">
             <div>
                 <label for="name">Имя: </label>
                 <input type="text" th:field="*{name}">
@@ -32,7 +32,7 @@
                       th:if="${#fields.hasErrors('login')}"
                       th:errors="*{login}">login
                 </span>
-                <span class="validationError" th:if="*{error}">Указанный логин занят.</span>
+                <span class="validationError" th:if="*{isError}">Указанный логин занят.</span>
             </div>
             <div>
                 <label for="password">Пароль: </label>

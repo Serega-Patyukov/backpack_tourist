@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import ru.patyukov.backpack_tourist.model.User;
 import ru.patyukov.backpack_tourist.model.UserLogPas;
-import ru.patyukov.backpack_tourist.service.UserService;
+import ru.patyukov.backpack_tourist.service.UserServiceImpl;
 
 import javax.validation.Valid;
 
@@ -16,7 +15,7 @@ import javax.validation.Valid;
 public class LoginController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @GetMapping
     public String viewLogin() {
@@ -33,13 +32,13 @@ public class LoginController {
 
         if (errors.hasErrors()) return "login";
 
-        if (userService.existsById(userLogPas.getLogin())) {
-            User u = userService.findById(userLogPas.getLogin());
-            if (userLogPas.getPassword().equals(u.getPassword())) {
-                userLogPas.setPassword("");
-                return "redirect:/user";
-            }
-        }
+//        if (userServiceImpl.existsById(userLogPas.getLogin())) {
+//            User u = userServiceImpl.findById(userLogPas.getLogin());
+//            if (userLogPas.getPassword().equals(u.getPassword())) {
+//                userLogPas.setPassword("");
+//                return "redirect:/user";
+//            }
+//        }
 
         userLogPas.setError(true);
 

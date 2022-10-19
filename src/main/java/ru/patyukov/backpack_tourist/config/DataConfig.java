@@ -1,31 +1,31 @@
 package ru.patyukov.backpack_tourist.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.patyukov.backpack_tourist.model.User;
+import ru.patyukov.backpack_tourist.dto.UserDto;
 import ru.patyukov.backpack_tourist.service.UserService;
 
 @Configuration
+@AllArgsConstructor
 public class DataConfig {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @Bean
     public CommandLineRunner addSuperUser() {
         return args -> {
             if (!userService.existsById("admin")) {
-                User user = new User();
-                user.setName("admin");
-                user.setNotes("admin");
-                user.setLogin("admin");
-                user.setAuthority("root");
-                user.setPassword("SuperUser");
-                user.setPhoneNumber("89009553902");
+                UserDto userDto = new UserDto();
+                userDto.setName("admin");
+                userDto.setNotes("admin");
+                userDto.setLogin("admin");
+                userDto.setAuthority("root");
+                userDto.setPassword("SuperUser");
+                userDto.setPhoneNumber("89009553902");
 
-                userService.save(user);
+                userService.save(userDto);
             }
         };
     }

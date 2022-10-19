@@ -1,7 +1,7 @@
 package ru.patyukov.backpack_tourist.facade;
 
-import org.springframework.stereotype.Component;
+import ru.patyukov.backpack_tourist.web.request.UserRequest;
 
-@Component
-public class Facade {
+public interface Facade {
+    String addUser(UserRequest UserRequest);
 }

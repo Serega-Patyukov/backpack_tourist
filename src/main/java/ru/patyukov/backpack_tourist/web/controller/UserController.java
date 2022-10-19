@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import ru.patyukov.backpack_tourist.model.User;
+import ru.patyukov.backpack_tourist.entity.User;
 import ru.patyukov.backpack_tourist.model.UserLogPas;
 import ru.patyukov.backpack_tourist.service.HikeService;
-import ru.patyukov.backpack_tourist.service.UserService;
+import ru.patyukov.backpack_tourist.service.UserServiceImpl;
 
 @Controller
 @RequestMapping("/user")
@@ -15,7 +15,7 @@ import ru.patyukov.backpack_tourist.service.UserService;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
     private HikeService hikeService;
@@ -34,11 +34,12 @@ public class UserController {
 
     @ModelAttribute(name = "user")
     public User addUserModel(UserLogPas userLogPas) {
-        if (userLogPas.getLogin() == null) return new User();
-        else {
-            User user = userService.findById(userLogPas.getLogin());   //TODO тут нужно сделать проверку
-            return user;
-        }
+//        if (userLogPas.getLogin() == null) return new User();
+//        else {
+//            User user = userServiceImpl.findById(userLogPas.getLogin());   //TODO тут нужно сделать проверку
+//            return user;
+//        }
+        return new User();
     }
 
     @PostMapping
