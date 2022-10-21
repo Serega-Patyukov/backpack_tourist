@@ -1,28 +1,23 @@
 package ru.patyukov.backpack_tourist.web.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import ru.patyukov.backpack_tourist.entity.User;
-import ru.patyukov.backpack_tourist.model.UserLogPas;
-import ru.patyukov.backpack_tourist.service.HikeService;
-import ru.patyukov.backpack_tourist.service.UserServiceImpl;
+import ru.patyukov.backpack_tourist.facade.Facade;
+import ru.patyukov.backpack_tourist.web.request.UserLogPasRequest;
+import ru.patyukov.backpack_tourist.web.response.UserResponse;
 
 @Controller
 @RequestMapping("/user")
-@SessionAttributes("userLogPas")
+@SessionAttributes("userLogPasRequest")
+@AllArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserServiceImpl userServiceImpl;
-
-    @Autowired
-    private HikeService hikeService;
+    private final Facade facade;
 
     @GetMapping
-    public String viewUser(UserLogPas userLogPas) {
-        if (userLogPas.getLogin() == null) return "redirect:/login";
+    public String viewUser() {
         return "user";
     }
 
@@ -32,24 +27,19 @@ public class UserController {
         return "redirect:/";
     }
 
-    @ModelAttribute(name = "user")
-    public User addUserModel(UserLogPas userLogPas) {
-//        if (userLogPas.getLogin() == null) return new User();
-//        else {
-//            User user = userServiceImpl.findById(userLogPas.getLogin());   //TODO тут нужно сделать проверку
-//            return user;
-//        }
-        return new User();
+    @ModelAttribute
+    public UserResponse addUserModel(UserLogPasRequest userLogPasRequest) {
+        return facade.addUserModel(userLogPasRequest);
     }
 
-    @PostMapping
-    public String openHike(UserLogPas userLogPas, long id) {
-        if (userLogPas.getLogin() == null) {
-            return "redirect:/user";
-        } else if (!hikeService.existsById(id, userLogPas.getLogin())) {
-            return "redirect:/user";
-        }
-        userLogPas.setId(id);
+    @GetMapping("/hike")
+    public String openHike(UserLogPasRequest userLogPasRequest, long id) {
+//        if (userLogPasRequest.getLogin() == null) {
+//            return "redirect:/user";
+//        } else if (!hikeService.existsById(id, userLogPasRequest.getLogin())) {
+//            return "redirect:/user";
+//        }
+//        userLogPasRequest.setId(id);
         return "redirect:/hike";
     }
 }

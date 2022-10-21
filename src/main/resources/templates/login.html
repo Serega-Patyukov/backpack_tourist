@@ -14,7 +14,7 @@
         <h3>
             <a href="http://localhost:8080/"><button>назад</button></a>
         </h3>
-        <form method="post" th:object="${userLogPas}">
+        <form method="post" th:object="${userLogPasRequest}">
             <div>
                 <label for="login">Логин: </label>
                 <input type="text" th:field="*{login}">
@@ -32,7 +32,7 @@
                 </span>
             </div>
             <h3>
-                <span class="validationError" th:if="*{error}">Логин или пароль указан неверно.</span>
+                <span class="validationError" th:if="*{isError}">Логин или пароль указан неверно.</span>
             </h3>
             <div>
                 <button>войти</button>

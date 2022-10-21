@@ -15,9 +15,9 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserDto save(UserDto userDto) {
-        User user = userRepository.save(userMapper.userDtoToUserEntity(userDto));
-        return userMapper.userEntityToUserDto(user);
+    public UserDto addUser(UserDto userDto) {
+        User user = userRepository.save(userMapper.userDtoToUser(userDto));
+        return userMapper.userToUserDto(user);
     }
 
     @Override
@@ -27,8 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findById(String login) {
-        //TODO тут нужно сделать проверку
-        User user = userRepository.findById(login).get();
-        return userMapper.userEntityToUserDto(user);
+        User user = userRepository.findById(login).orElse(new User());
+        return userMapper.userToUserDto(user);
     }
 }

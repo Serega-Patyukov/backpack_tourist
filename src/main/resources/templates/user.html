@@ -17,7 +17,7 @@
     <h3>
         <a href="http://localhost:8080/user/exit"><button>выход</button></a>
     </h3>
-    <form method="post">
+    <form method="get" action="/hike">
         <div>
             <span>Укажите id похода: </span>
             <input name="id" type="number" min="1" max="9223372036854775807" required>
@@ -25,7 +25,7 @@
         </div>
     </form>
     <h3>Список походов:</h3>
-    <div th:object="${user}">
+    <div th:object="${userResponse}">
         <span class="validationError" th:if="*{getHikeList().size() == 0}">в походы не ходил</span>
         <div th:each="hike : *{getHikeList()}">
             <span th:text="${hike.getId()}"></span>
