@@ -1,7 +1,6 @@
 package ru.patyukov.backpack_tourist.entity;
 
 import lombok.Data;
-import ru.patyukov.backpack_tourist.model.Hike;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,7 +24,9 @@ public class User {
     @Column(nullable = false)
     private String authority;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "user",
+            cascade = CascadeType.ALL)
     private List<Hike> hikeList = new ArrayList<>();
 
     @Column(name = "phone_number", nullable = false)

@@ -14,7 +14,7 @@
       <h3>
           <a href="http://localhost:8080/user"><button>назад</button></a>
       </h3>
-      <form method="post" th:object="${hike}">
+      <form method="post" th:object="${hikeRequest}">
           <div>
               <label for="name">Название: </label>
               <input type="text" th:field="*{name}">

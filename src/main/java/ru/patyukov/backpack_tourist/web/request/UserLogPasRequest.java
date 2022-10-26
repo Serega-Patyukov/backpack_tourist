@@ -14,6 +14,4 @@ public class UserLogPasRequest {
 
     @Size(min = 8, message = "Введите корректно пароль. Минимум 8 символов.")
     private String password = "";
-
-    private boolean isError = false;
 }

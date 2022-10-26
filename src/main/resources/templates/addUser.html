@@ -32,7 +32,7 @@
                       th:if="${#fields.hasErrors('login')}"
                       th:errors="*{login}">login
                 </span>
-                <span class="validationError" th:if="*{isError}">Указанный логин занят.</span>
+                <span class="validationError" th:text="${msg}"></span>
             </div>
             <div>
                 <label for="password">Пароль: </label>

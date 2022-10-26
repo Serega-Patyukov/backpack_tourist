@@ -21,6 +21,4 @@ public class UserRequest {
     private String phoneNumber;
 
     private String notes = "";
-
-    private boolean isError = false;
 }

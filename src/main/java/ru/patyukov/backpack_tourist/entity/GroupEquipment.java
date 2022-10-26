@@ -1,4 +1,4 @@
-package ru.patyukov.backpack_tourist.model;
+package ru.patyukov.backpack_tourist.entity;
 
 // Группы снаряжения
 public enum GroupEquipment {

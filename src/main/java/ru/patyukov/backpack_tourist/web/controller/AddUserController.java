@@ -2,6 +2,7 @@ package ru.patyukov.backpack_tourist.web.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -19,7 +20,9 @@ public class AddUserController {
     private final Facade facade;
 
     @GetMapping
-    public String viewAddUser() {
+    public String viewAddUser(@RequestParam(required = false, defaultValue = "") String msg,
+                              Model model) {
+        model.addAttribute("msg", msg);
         return "addUser";
     }
 

@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import ru.patyukov.backpack_tourist.model.Hike;
+import ru.patyukov.backpack_tourist.entity.Hike;
 import ru.patyukov.backpack_tourist.web.request.UserLogPasRequest;
-import ru.patyukov.backpack_tourist.service.HikeService;
+import ru.patyukov.backpack_tourist.service.HikeServiceImpl;
 
 @Controller
 @RequestMapping("/hike")
@@ -15,7 +15,7 @@ import ru.patyukov.backpack_tourist.service.HikeService;
 public class HikeController {
 
     @Autowired
-    private HikeService hikeService;
+    private HikeServiceImpl hikeServiceImpl;
 
     @RequestMapping
     public String viewHike(UserLogPasRequest userLogPasRequest) {
@@ -27,7 +27,7 @@ public class HikeController {
     public Hike addHikeModel(UserLogPasRequest userLogPasRequest) {
         if (userLogPasRequest.getLogin() == null) return new Hike();
         else {
-            Hike hike = hikeService.findById(userLogPasRequest.getId(), userLogPasRequest.getLogin());   //TODO тут нужно сделать проверку
+            Hike hike = hikeServiceImpl.findById(userLogPasRequest.getId(), userLogPasRequest.getLogin());   //TODO тут нужно сделать проверку
             return hike;
         }
     }

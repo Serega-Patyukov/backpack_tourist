@@ -25,14 +25,14 @@
             </div>
             <div>
                 <label for="password">Пароль: </label>
-                <input type="text" th:field="*{password}">
+                <input type="password" th:field="*{password}">
                 <span class="validationError"
                       th:if="${#fields.hasErrors('password')}"
                       th:errors="*{password}">password
                 </span>
             </div>
             <h3>
-                <span class="validationError" th:if="*{isError}">Логин или пароль указан неверно.</span>
+                <span class="validationError" th:text="${msg}"></span>
             </h3>
             <div>
                 <button>войти</button>
