@@ -38,14 +38,11 @@ public class FacadeImpl implements Facade {
     }
 
     @Override
-    public UserLogPasResponse login(UserLogPasRequest userLogPasRequest) {
-        if (userService.existsById(userLogPasRequest.getLogin())) {
-            UserDto userDto = userService.findById(userLogPasRequest.getLogin());
-            if (userLogPasRequest.getPassword().equals(userDto.getPassword())) {
-                return userMapper.userLogPasRequestToUserLogPasResponse(userLogPasRequest);
-            }
-        }
-        throw new BadRequestException("login redirect:/login");
+    public HikeResponse addHike(HikeRequest hikeRequest, UserLogPasRequest userLogPasRequest) {
+        login(userLogPasRequest);
+        HikeDto hikeDto = hikeMapper.hikeRequestToHikeDto(hikeRequest);
+        hikeDto.setUserLogin(userLogPasRequest.getLogin());
+        return hikeMapper.hikeDtoToHikeResponse(hikeService.addHike(hikeDto));
     }
 
     @Override
@@ -71,11 +68,23 @@ public class FacadeImpl implements Facade {
     }
 
     @Override
-    public HikeResponse addHike(HikeRequest hikeRequest, UserLogPasRequest userLogPasRequest) {
+    public HikeResponse addHikeModel(UserLogPasRequest userLogPasRequest, Long idHike) {
         login(userLogPasRequest);
-        HikeDto hikeDto = hikeMapper.hikeRequestToHikeDto(hikeRequest);
-        hikeDto.setUserLogin(userLogPasRequest.getLogin());
-        return hikeMapper.hikeDtoToHikeResponse(hikeService.addHike(hikeDto));
+        HikeDto hikeDto = hikeService.findById(idHike);
+        if (!userLogPasRequest.getLogin().equals(hikeDto.getUserLogin())) {
+            throw new BadRequestException("user redirect:/user");
+        }
+        return hikeMapper.hikeDtoToHikeResponse(hikeDto);
     }
 
+    @Override
+    public UserLogPasResponse login(UserLogPasRequest userLogPasRequest) {
+        if (userService.existsById(userLogPasRequest.getLogin())) {
+            UserDto userDto = userService.findById(userLogPasRequest.getLogin());
+            if (userLogPasRequest.getPassword().equals(userDto.getPassword())) {
+                return userMapper.userLogPasRequestToUserLogPasResponse(userLogPasRequest);
+            }
+        }
+        throw new BadRequestException("login redirect:/login");
+    }
 }

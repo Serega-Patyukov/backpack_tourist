@@ -21,6 +21,10 @@ public class ControllerExceptionHandler {
             model.addAttribute("msg", "Логин занят");
         }
 
+        if ("user".equals(msgSplit[0])) {
+            model.addAttribute("msg", "Поход не найден");
+        }
+
         return msgSplit[1];
     }
 }

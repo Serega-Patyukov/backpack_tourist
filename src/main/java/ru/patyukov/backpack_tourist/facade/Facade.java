@@ -10,9 +10,9 @@ import ru.patyukov.backpack_tourist.web.response.UserResponse;
 
 public interface Facade {
     UserResponse addUser(UserRequest UserRequest);
-    UserLogPasResponse login(UserLogPasRequest userLogPasRequest);
-    UserResponse addUserModel(UserLogPasRequest userLogPasRequest);
-
-    HikeRequest addHikeModel(UserLogPasRequest userLogPasRequest);
     HikeResponse addHike(HikeRequest hikeRequest, UserLogPasRequest userLogPasRequest);
+    UserResponse addUserModel(UserLogPasRequest userLogPasRequest);
+    HikeRequest addHikeModel(UserLogPasRequest userLogPasRequest);
+    HikeResponse addHikeModel(UserLogPasRequest userLogPasRequest, Long idHike);
+    UserLogPasResponse login(UserLogPasRequest userLogPasRequest);
 }

@@ -6,6 +6,7 @@
       <meta name="viewport"
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" th:href="@{/styles.css}" />
       <title>Страница туриста</title>
   </head>
   <body>
@@ -20,8 +21,8 @@
     <form method="get" action="/hike">
         <div>
             <span>Укажите id похода: </span>
-            <input name="id" type="number" min="1" max="9223372036854775807" required>
-            <button>просмотр</button>
+            <input name="idHike" type="number" min="1" max="9223372036854775807" required>
+            <button>просмотр</button> <span class="validationError" th:text="${msg}"></span>
         </div>
     </form>
     <h3>Список походов:</h3>
@@ -33,9 +34,6 @@
             <span th:text="${hike.getName()}"></span>
             <span>. Начало - </span> <span th:text="${hike.getDateStart()}"></span>
             <span>. Конец - </span> <span th:text="${hike.getDateFinish()}"></span>
-<!--            <div th:each="equipment : ${hike.getEquipmentList()}">-->
-<!--                <span th:text="${equipment}"></span>-->
-<!--            </div>-->
         </div>
     </div>
   </body>

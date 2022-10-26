@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.patyukov.backpack_tourist.dto.HikeDto;
 import ru.patyukov.backpack_tourist.entity.Hike;
 import ru.patyukov.backpack_tourist.entity.User;
+import ru.patyukov.backpack_tourist.exception.BadRequestException;
 import ru.patyukov.backpack_tourist.mapper.HikeMapper;
 import ru.patyukov.backpack_tourist.repository.HikeRepository;
 
@@ -37,27 +38,12 @@ public class HikeServiceImpl implements HikeService {
                 .collect(Collectors.toList());
     }
 
-    public boolean existsById(long id, String login) {
-        //TODO тут нужно сделать проверку
-//        User user = userRepository.findById(login).get();
-//        List<Hike> hikeList = user.getHikeList();
-//        for (Hike hike : hikeList) {
-//            if (hike.getId() == id) {
-//                return true;
-//            }
-//        }
-        return false;
-    }
-
-    public Hike findById(long id, String login) {
-        //TODO тут нужно сделать проверку
-//        User user = userRepository.findById(login).get();
-//        List<Hike> hikeList = user.getHikeList();
-//        for (Hike hike : hikeList) {
-//            if (hike.getId() == id) {
-//                return hike;
-//            }
-//        }
-        return new Hike();
+    @Override
+    public HikeDto findById(Long id) {
+        Hike hike = hikeRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException("user redirect:/user"));
+        HikeDto hikeDto = hikeMapper.hikeToHikeDto(hike);
+        hikeDto.setUserLogin(hike.getUser().getLogin());
+        return hikeDto;
     }
 }

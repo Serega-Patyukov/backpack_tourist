@@ -1,34 +1,28 @@
 package ru.patyukov.backpack_tourist.web.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import ru.patyukov.backpack_tourist.entity.Hike;
+import org.springframework.web.bind.annotation.*;
+import ru.patyukov.backpack_tourist.facade.Facade;
 import ru.patyukov.backpack_tourist.web.request.UserLogPasRequest;
-import ru.patyukov.backpack_tourist.service.HikeServiceImpl;
+import ru.patyukov.backpack_tourist.web.response.HikeResponse;
 
 @Controller
 @RequestMapping("/hike")
 @SessionAttributes("userLogPasRequest")
+@AllArgsConstructor
 public class HikeController {
 
-    @Autowired
-    private HikeServiceImpl hikeServiceImpl;
+    private final Facade facade;
 
-    @RequestMapping
-    public String viewHike(UserLogPasRequest userLogPasRequest) {
-        if (userLogPasRequest.getLogin() == null) return "redirect:/login";
+    @GetMapping
+    public String viewHike() {
         return "hike";
     }
 
     @ModelAttribute
-    public Hike addHikeModel(UserLogPasRequest userLogPasRequest) {
-        if (userLogPasRequest.getLogin() == null) return new Hike();
-        else {
-            Hike hike = hikeServiceImpl.findById(userLogPasRequest.getId(), userLogPasRequest.getLogin());   //TODO тут нужно сделать проверку
-            return hike;
-        }
+    public HikeResponse addHikeModel(UserLogPasRequest userLogPasRequest,
+                                     Long idHike) {
+        return facade.addHikeModel(userLogPasRequest, idHike);
     }
 }

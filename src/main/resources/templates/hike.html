@@ -12,10 +12,10 @@
   <body>
       <h1>Страница похода</h1>
       <div>тут будет приветствие от админа</div>
-      <h3 th:text="${hike.getName()}"></h3>
-      <div><span>Начало - </span> <span th:text="${hike.getDateStart()}"></span></div>
-      <div><span>Конец - </span> <span th:text="${hike.getDateFinish()}"></span></div>
-      <div th:text="'Примечания: ' + ${hike.getNotes()}"></div>
+      <h3 th:text="${hikeResponse.getName()}"></h3>
+      <div><span>Начало - </span> <span th:text="${hikeResponse.getDateStart()}"></span></div>
+      <div><span>Конец - </span> <span th:text="${hikeResponse.getDateFinish()}"></span></div>
+      <div th:text="'Примечания: ' + ${hikeResponse.getNotes()}"></div>
       <h3>
           <a href="http://localhost:8080/user"><button>назад</button></a>
       </h3>
