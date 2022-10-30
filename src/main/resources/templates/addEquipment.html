@@ -1,0 +1,56 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <title>addEquipment</title>
+</head>
+<body>
+    <h1>Добавление снаряжения</h1>
+    <form action="/hike" method="get">
+        <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
+        <button>назад</button>
+    </form>
+    <form action="/addEquipment" method="post" th:object="${equipmentRequest}">
+        <div>
+            <label for="name">Имя: </label>
+            <input id="name" type="text" th:field="*{name}">
+            <span class="validationError">*</span>
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}">name
+                </span>
+        </div>
+        <div>
+            <label for="grp">Группа снаряжения: </label>
+            <select id="grp" th:field="*{grp}">
+                <option value="PERSONAL_EQUIPMENT">PERSONAL_EQUIPMENT</option>
+                <option value="PUBLIC_EQUIPMENT">PUBLIC_EQUIPMENT</option>
+                <option value="PERSONAL_HYGIENE">PERSONAL_HYGIENE</option>
+                <option value="WALKING_CLOTHES">WALKING_CLOTHES</option>
+                <option value="SLEEP_CLOTHES">SLEEP_CLOTHES</option>
+                <option value="FIRST_AID_KIT">FIRST_AID_KIT</option>
+                <option value="PUBLIC_FOOD">PUBLIC_FOOD</option>
+                <option value="PHOTO_VIDEO">PHOTO_VIDEO</option>
+                <option value="DOCUMENTS">DOCUMENTS</option>
+                <option value="REM_KIT">REM_KIT</option>
+                <option value="RESERVE">RESERVE</option>
+            </select>
+        </div>
+        <div>
+            <label for="weight">Вес: </label>
+            <input id="weight" type="number" th:field="*{weight}">
+        </div>
+        <div>
+            <label for="notes">Примечания: </label>
+            <textarea id="notes" th:field="*{notes}"></textarea>
+        </div>
+        <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
+        <button>добавить</button>
+    </form>
+</body>
+</html>

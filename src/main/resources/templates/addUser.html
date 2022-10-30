@@ -10,14 +10,14 @@
         <title>Создание туриста</title>
     </head>
     <body>
-        <h1>Создание туриста</h1>
+        <h1>Регистрация</h1>
         <h3>
             <a href="http://localhost:8080/"><button>назад</button></a>
         </h3>
         <form method="post" th:object="${userRequest}">
             <div>
                 <label for="name">Имя: </label>
-                <input type="text" th:field="*{name}">
+                <input id="name" type="text" th:field="*{name}">
                 <span class="validationError">*</span>
                 <span class="validationError"
                       th:if="${#fields.hasErrors('name')}"
@@ -26,7 +26,7 @@
             </div>
             <div>
                 <label for="login">Логин: </label>
-                <input type="text" th:field="*{login}">
+                <input id="login" type="text" th:field="*{login}">
                 <span class="validationError">*</span>
                 <span class="validationError"
                       th:if="${#fields.hasErrors('login')}"
@@ -36,7 +36,7 @@
             </div>
             <div>
                 <label for="password">Пароль: </label>
-                <input type="text" th:field="*{password}">
+                <input id="password" type="text" th:field="*{password}">
                 <span class="validationError">*</span>
                 <span class="validationError"
                       th:if="${#fields.hasErrors('password')}"
@@ -45,7 +45,7 @@
             </div>
             <div>
                 <label for="phoneNumber">Номер телефона: </label>
-                <input type="text" th:field="*{phoneNumber}">
+                <input id="phoneNumber" type="text" th:field="*{phoneNumber}">
                 <span class="validationError">*</span>
                 <span class="validationError"
                       th:if="${#fields.hasErrors('phoneNumber')}"
@@ -54,7 +54,7 @@
             </div>
             <div>
                 <label for="notes">Примечания: </label>
-                <textarea th:field="*{notes}"></textarea>
+                <textarea id="notes" th:field="*{notes}"></textarea>
             </div>
             <h3 class="info">Поля со * обязательны для заполнения</h3>
             <div>

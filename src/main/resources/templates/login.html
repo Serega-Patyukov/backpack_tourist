@@ -17,7 +17,7 @@
         <form method="post" th:object="${userLogPasRequest}">
             <div>
                 <label for="login">Логин: </label>
-                <input type="text" th:field="*{login}">
+                <input id="login" type="text" th:field="*{login}">
                 <span class="validationError"
                       th:if="${#fields.hasErrors('login')}"
                       th:errors="*{login}">login
@@ -25,7 +25,7 @@
             </div>
             <div>
                 <label for="password">Пароль: </label>
-                <input type="password" th:field="*{password}">
+                <input id="password" type="text" th:field="*{password}">
                 <span class="validationError"
                       th:if="${#fields.hasErrors('password')}"
                       th:errors="*{password}">password

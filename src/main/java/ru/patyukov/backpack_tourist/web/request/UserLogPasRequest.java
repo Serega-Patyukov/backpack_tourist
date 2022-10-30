@@ -9,9 +9,9 @@ public class UserLogPasRequest {
 
     private long id;
 
-    @Size(min = 3, message = "Введите корректно логин. Минимум 3 символа.")
+    @Size(min = 3, message = "Минимум 3 символа.")
     private String login = "";
 
-    @Size(min = 8, message = "Введите корректно пароль. Минимум 8 символов.")
+    @Size(min = 8, message = "Минимум 8 символов.")
     private String password = "";
 }

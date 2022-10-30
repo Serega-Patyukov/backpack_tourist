@@ -20,10 +20,14 @@
           <a href="http://localhost:8080/user"><button>назад</button></a>
       </h3>
       <h3>
-          <a href="http://localhost:8080/user"><button>удалить поход</button></a>
+          <a href="http://localhost:8080/user"><button disabled>удалить поход</button></a>
       </h3>
       <h3>
-          <a href="http://localhost:8080/hike"><button>редактировать поход</button></a>
+          <a href="http://localhost:8080/user?idHike="><button disabled>редактировать поход</button></a>
       </h3>
+      <form action="/addEquipment" method="get">
+          <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
+          <button>добавить снаряжение</button>
+      </form>
   </body>
 </html>
