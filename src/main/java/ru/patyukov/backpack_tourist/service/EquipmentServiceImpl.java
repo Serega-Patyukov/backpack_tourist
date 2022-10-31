@@ -8,6 +8,9 @@ import ru.patyukov.backpack_tourist.entity.Hike;
 import ru.patyukov.backpack_tourist.mapper.EquipmentMapper;
 import ru.patyukov.backpack_tourist.repository.EquipmentRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class EquipmentServiceImpl implements EquipmentService {
@@ -24,5 +27,12 @@ public class EquipmentServiceImpl implements EquipmentService {
 
         equipment = equipmentRepository.save(equipment);
         return equipmentMapper.EquipmentToEquipmentDto(equipment);
+    }
+
+    @Override
+    public List<EquipmentDto> findByHikeId(Long hikeId) {
+        return equipmentRepository.findByHikeId(hikeId).stream()
+                .map(equipment -> equipmentMapper.EquipmentToEquipmentDto(equipment))
+                .collect(Collectors.toList());
     }
 }

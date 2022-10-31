@@ -4,7 +4,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.patyukov.backpack_tourist.entity.GroupEquipment;
 import ru.patyukov.backpack_tourist.facade.Facade;
+import ru.patyukov.backpack_tourist.web.response.EquipmentResponse;
+import ru.patyukov.backpack_tourist.web.response.HikeResponse;
+
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/hike")
@@ -16,7 +21,12 @@ public class HikeController {
     @GetMapping
     public String viewHike(Model model,
                            @RequestParam(required = false, defaultValue = "0") Long idHike) {
-        model.addAttribute("hikeResponse", facade.addHikeModel(idHike));
+        HikeResponse hikeResponse = facade.addHikeModel(idHike);
+        model.addAttribute("hikeResponse", hikeResponse);
+        model.addAttribute("listGroupEquipment", hikeResponse.getEquipmentList().stream()
+                .collect(Collectors.groupingBy(EquipmentResponse::getGrp))
+                .values().stream()
+                .collect(Collectors.toList()));
         return "hike";
     }
 }

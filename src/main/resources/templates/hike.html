@@ -18,16 +18,34 @@
       <div th:text="'Примечания: ' + ${hikeResponse.getNotes()}"></div>
       <h3>
           <a href="http://localhost:8080/user"><button>назад</button></a>
-      </h3>
-      <h3>
           <a href="http://localhost:8080/user"><button disabled>удалить поход</button></a>
-      </h3>
-      <h3>
           <a href="http://localhost:8080/user?idHike="><button disabled>редактировать поход</button></a>
       </h3>
       <form action="/addEquipment" method="get">
           <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
           <button>добавить снаряжение</button>
       </form>
+      <form action="/t" method="get">
+          <span>Укажите id: </span>
+          <input name="idEquipment" type="number" min="1" max="9223372036854775807" required>
+          <button disabled>редактировать снаряжение</button>
+      </form>
+      <form action="/" method="get">
+          <span>Укажите id: </span>
+          <input name="idEquipment" type="number" min="1" max="9223372036854775807" required>
+          <button disabled>удалить снаряжение</button>
+      </form>
+
+      <div th:each="equipmentList : ${listGroupEquipment}">
+          <h3>
+              <span th:text="${equipmentList.get(0).getGrp()}"></span>
+          </h3>
+          <div th:each="equipment : ${equipmentList}">
+              <span th:text="${equipment.getId()}"></span>
+              <span th:text="${equipment.getName()}"></span>
+              <span th:text="${equipment.getWeight()}"></span>
+              <span th:text="${equipment.getNotes()}"></span>
+            </div>
+      </div>
   </body>
 </html>

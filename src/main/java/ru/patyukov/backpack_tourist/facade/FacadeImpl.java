@@ -86,7 +86,15 @@ public class FacadeImpl implements Facade {
         if (!login.equals(hikeDto.getUserLogin())) {
             throw new BadRequestException("user redirect:/user");
         }
-        return hikeMapper.hikeDtoToHikeResponse(hikeDto);
+
+        List<EquipmentDto> equipmentDtoList = equipmentService.findByHikeId(idHike);
+
+        HikeResponse hikeResponse = hikeMapper.hikeDtoToHikeResponse(hikeDto);
+        hikeResponse.setEquipmentList(equipmentDtoList.stream()
+                .map(equipmentDto -> equipmentMapper.equipmentDtoToEquipmentResponse(equipmentDto))
+                .collect(Collectors.toList()));
+
+        return hikeResponse;
     }
 
     @Override
