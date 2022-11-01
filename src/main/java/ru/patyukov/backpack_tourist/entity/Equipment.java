@@ -17,7 +17,7 @@ public class Equipment {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private GroupEquipment grp;   // Группа снаряжения
+    private GroupEquipment grp;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {
             CascadeType.DETACH,
@@ -26,6 +26,6 @@ public class Equipment {
     @JoinColumn(name = "hike_id", nullable = false)
     private Hike hike;
 
-    private double weight;   // Масса
-    private String notes;   // Примечания
+    private double weight;
+    private String notes;
 }

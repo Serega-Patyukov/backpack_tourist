@@ -7,4 +7,5 @@ import java.util.List;
 public interface EquipmentService {
     EquipmentDto addEquipment(EquipmentDto equipmentDto);
     List<EquipmentDto> findByHikeId(Long hikeId);
+    EquipmentDto getEquipment(Long idEquipment);
 }

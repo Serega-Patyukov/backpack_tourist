@@ -103,6 +103,21 @@ public class FacadeImpl implements Facade {
     }
 
     @Override
+    public EquipmentRequest editEquipmentModel(Long idHike, Long idEquipment) {
+        login();
+        String login = securityContext.getLoginUser();
+
+        EquipmentDto equipmentDto = equipmentService.getEquipment(idEquipment);
+        HikeDto hikeDto = hikeService.findById(idHike);
+
+        if (!login.equals(hikeDto.getUserLogin()) || !equipmentDto.getHikeId().equals(idHike)) {
+            throw new BadRequestException("user redirect:/user");
+        }
+
+        return equipmentMapper.equipmentDtoToEquipmentRequest(equipmentDto);
+    }
+
+    @Override
     public EquipmentResponse addEquipment(EquipmentRequest equipmentRequest, Long idHike) {
         login();
         String login = securityContext.getLoginUser();

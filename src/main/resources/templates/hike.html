@@ -25,10 +25,11 @@
           <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
           <button>добавить снаряжение</button>
       </form>
-      <form action="/t" method="get">
+      <form action="/editEquipment" method="get">
           <span>Укажите id: </span>
+          <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
           <input name="idEquipment" type="number" min="1" max="9223372036854775807" required>
-          <button disabled>редактировать снаряжение</button>
+          <button>редактировать снаряжение</button>
       </form>
       <form action="/" method="get">
           <span>Укажите id: </span>

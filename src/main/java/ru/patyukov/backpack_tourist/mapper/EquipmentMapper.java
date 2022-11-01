@@ -10,6 +10,7 @@ import ru.patyukov.backpack_tourist.web.response.EquipmentResponse;
 public interface EquipmentMapper {
     EquipmentDto equipmentRequestToEquipmentDto(EquipmentRequest equipmentRequest);
     EquipmentResponse equipmentDtoToEquipmentResponse(EquipmentDto equipmentDto);
+    EquipmentRequest equipmentDtoToEquipmentRequest(EquipmentDto equipmentDto);
     Equipment equipmentDtoToEquipment(EquipmentDto equipmentDto);
     EquipmentDto EquipmentToEquipmentDto(Equipment equipment);
 }
