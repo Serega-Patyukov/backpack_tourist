@@ -29,4 +29,10 @@ public class HikeController {
                 .collect(Collectors.toList()));
         return "hike";
     }
+
+    @PostMapping
+    public String deleteEquipment(Long idHike, Long idEquipment) {
+        facade.deleteEquipment(idEquipment);
+        return "redirect:/hike?idHike=" + idHike;
+    }
 }

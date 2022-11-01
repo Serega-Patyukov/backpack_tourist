@@ -18,7 +18,6 @@
       <div th:text="'Примечания: ' + ${hikeResponse.getNotes()}"></div>
       <h3>
           <a href="http://localhost:8080/user"><button>назад</button></a>
-          <a href="http://localhost:8080/user"><button disabled>удалить поход</button></a>
           <a href="http://localhost:8080/user?idHike="><button disabled>редактировать поход</button></a>
       </h3>
       <form action="/addEquipment" method="get">
@@ -31,10 +30,11 @@
           <input name="idEquipment" type="number" min="1" max="9223372036854775807" required>
           <button>редактировать снаряжение</button>
       </form>
-      <form action="/" method="get">
+      <form action="/hike" method="post">
           <span>Укажите id: </span>
+          <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
           <input name="idEquipment" type="number" min="1" max="9223372036854775807" required>
-          <button disabled>удалить снаряжение</button>
+          <button>удалить снаряжение</button>
       </form>
 
       <div th:each="equipmentList : ${listGroupEquipment}">

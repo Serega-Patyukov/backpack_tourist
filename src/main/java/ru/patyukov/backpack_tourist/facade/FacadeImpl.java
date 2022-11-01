@@ -133,6 +133,11 @@ public class FacadeImpl implements Facade {
     }
 
     @Override
+    public void deleteEquipment(Long idEquipment) {
+        equipmentService.deleteEquipment(idEquipment);
+    }
+
+    @Override
     public void login() {
         String login = securityContext.getLoginUser();
         String password = securityContext.getPassword();

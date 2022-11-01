@@ -43,4 +43,9 @@ public class EquipmentServiceImpl implements EquipmentService {
                 .map(equipment -> equipmentMapper.EquipmentToEquipmentDto(equipment))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteEquipment(Long idEquipment) {
+        equipmentRepository.deleteById(idEquipment);
+    }
 }
