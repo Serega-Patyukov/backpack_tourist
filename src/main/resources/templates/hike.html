@@ -18,8 +18,11 @@
       <div th:text="'Примечания: ' + ${hikeResponse.getNotes()}"></div>
       <h3>
           <a href="http://localhost:8080/user"><button>назад</button></a>
-          <a href="http://localhost:8080/user?idHike="><button disabled>редактировать поход</button></a>
       </h3>
+      <form action="/editHike" method="get">
+          <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
+          <button>редактировать описание похода</button>
+      </form>
       <form action="/addEquipment" method="get">
           <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
           <button>добавить снаряжение</button>
@@ -39,7 +42,17 @@
 
       <div th:each="equipmentList : ${listGroupEquipment}">
           <h3>
-              <span th:text="${equipmentList.get(0).getGrp()}"></span>
+              <span th:if="${equipmentList.get(0).getGrp().toString().equals('PERSONAL_EQUIPMENT')}">личное снаряжение</span>
+              <span th:if="${equipmentList.get(0).getGrp().toString().equals('PUBLIC_EQUIPMENT')}">общественное снаряжение</span>
+              <span th:if="${equipmentList.get(0).getGrp().toString().equals('PERSONAL_HYGIENE')}">личная гигиена</span>
+              <span th:if="${equipmentList.get(0).getGrp().toString().equals('WALKING_CLOTHES')}">ходовая одежда</span>
+              <span th:if="${equipmentList.get(0).getGrp().toString().equals('SLEEP_CLOTHES')}">одежда для сна</span>
+              <span th:if="${equipmentList.get(0).getGrp().toString().equals('FIRST_AID_KIT')}">аптечка</span>
+              <span th:if="${equipmentList.get(0).getGrp().toString().equals('PUBLIC_FOOD')}">общественная еда</span>
+              <span th:if="${equipmentList.get(0).getGrp().toString().equals('PHOTO_VIDEO')}">фото видео</span>
+              <span th:if="${equipmentList.get(0).getGrp().toString().equals('DOCUMENTS')}">документы</span>
+              <span th:if="${equipmentList.get(0).getGrp().toString().equals('REM_KIT')}">рем комплект</span>
+              <span th:if="${equipmentList.get(0).getGrp().toString().equals('RESERVE')}">резерв</span>
           </h3>
           <div th:each="equipment : ${equipmentList}">
               <span th:text="${equipment.getId()}"></span>

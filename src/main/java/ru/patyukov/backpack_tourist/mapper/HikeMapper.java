@@ -12,4 +12,5 @@ public interface HikeMapper {
     HikeDto hikeToHikeDto(Hike hike);
     HikeDto hikeRequestToHikeDto(HikeRequest hikeRequest);
     HikeResponse hikeDtoToHikeResponse(HikeDto hikeDto);
+    HikeRequest hikeDtoToHikeRequest(HikeDto hikeDto);
 }

@@ -17,7 +17,7 @@
       <form method="post" th:object="${hikeRequest}">
           <div>
               <label for="name">Название: </label>
-              <input type="text" th:field="*{name}">
+              <input id="name" type="text" th:field="*{name}">
               <span class="validationError">*</span>
               <span class="validationError"
                     th:if="${#fields.hasErrors('name')}"
@@ -26,15 +26,15 @@
           </div>
           <div>
               <label for="start">Начало: </label>
-              <input type="date" th:field="*{dateStart}">
+              <input id="start" type="date" th:field="*{dateStart}">
           </div>
           <div>
               <label for="finish">Конец: </label>
-              <input type="date" th:field="*{dateFinish}">
+              <input id="finish" type="date" th:field="*{dateFinish}">
           </div>
           <div>
               <label for="notes">Примечания: </label>
-              <textarea th:field="*{notes}"></textarea>
+              <textarea id="notes" th:field="*{notes}"></textarea>
           </div>
           <h3 class="info">Поля со * обязательны для заполнения</h3>
           <div>

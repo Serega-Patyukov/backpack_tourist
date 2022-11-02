@@ -9,4 +9,6 @@ public interface HikeService {
     HikeDto addHike(HikeDto hikeDto);
     List<HikeDto> findByUserLogin(String login);
     HikeDto findById(Long id);
+    void deleteHike(Long idHike);
 }
+

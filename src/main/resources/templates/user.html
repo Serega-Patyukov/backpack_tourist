@@ -27,10 +27,10 @@
             <button>просмотр</button> <span class="validationError" th:text="${msg}"></span>
         </div>
     </form>
-    <form action="/editEquipment" method="get">
+    <form action="/user" method="post">
         <span>Укажите id похода </span>
-        <input name="idEquipment" type="number" min="1" max="9223372036854775807" required>
-        <button disabled>удалить поход</button>
+        <input name="idHike" type="number" min="1" max="9223372036854775807" required>
+        <button>удалить поход</button>
     </form>
     <h3>Список походов:</h3>
     <div th:object="${userResponse}">

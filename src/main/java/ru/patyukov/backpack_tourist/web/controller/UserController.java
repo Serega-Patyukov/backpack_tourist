@@ -29,4 +29,10 @@ public class UserController {
         securityContext.setPassword("");
         return "redirect:/";
     }
+
+    @PostMapping
+    public String deleteHike(Long idHike) {
+        facade.deleteHike(idHike);
+        return "redirect:/user";
+    }
 }

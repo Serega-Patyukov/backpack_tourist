@@ -18,5 +18,7 @@ public interface Facade {
     EquipmentResponse addEquipment(EquipmentRequest equipmentRequest, Long idHike);
     EquipmentRequest editEquipmentModel(Long idHike, Long idEquipment);
     void deleteEquipment(Long idEquipment);
+    HikeRequest editHikeModel(Long idHike);
     void login();
+    void deleteHike(Long idHike);
 }

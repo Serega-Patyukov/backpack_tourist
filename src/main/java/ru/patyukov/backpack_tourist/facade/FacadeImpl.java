@@ -78,6 +78,14 @@ public class FacadeImpl implements Facade {
     }
 
     @Override
+    public HikeRequest editHikeModel(Long idHike) {
+        login();
+        HikeDto hikeDto = hikeService.findById(idHike);
+        HikeRequest hikeRequest = hikeMapper.hikeDtoToHikeRequest(hikeDto);
+        return hikeRequest;
+    }
+
+    @Override
     public HikeResponse addHikeModel(Long idHike) {
         login();
         String login = securityContext.getLoginUser();
@@ -135,6 +143,11 @@ public class FacadeImpl implements Facade {
     @Override
     public void deleteEquipment(Long idEquipment) {
         equipmentService.deleteEquipment(idEquipment);
+    }
+
+    @Override
+    public void deleteHike(Long idHike) {
+        hikeService.deleteHike(idHike);
     }
 
     @Override

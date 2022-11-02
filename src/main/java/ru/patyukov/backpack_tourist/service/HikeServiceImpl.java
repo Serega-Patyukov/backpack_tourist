@@ -46,4 +46,9 @@ public class HikeServiceImpl implements HikeService {
         hikeDto.setUserLogin(hike.getUser().getLogin());
         return hikeDto;
     }
+
+    @Override
+    public void deleteHike(Long idHike) {
+        hikeRepository.deleteById(idHike);
+    }
 }
