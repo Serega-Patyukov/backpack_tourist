@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.patyukov.backpack_tourist.entity.GroupEquipment;
 import ru.patyukov.backpack_tourist.facade.Facade;
 import ru.patyukov.backpack_tourist.web.response.EquipmentResponse;
 import ru.patyukov.backpack_tourist.web.response.HikeResponse;
@@ -12,8 +11,8 @@ import ru.patyukov.backpack_tourist.web.response.HikeResponse;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/hike")
 @AllArgsConstructor
+@RequestMapping("/hike")
 public class HikeController {
 
     private final Facade facade;

@@ -12,29 +12,29 @@ import ru.patyukov.backpack_tourist.web.request.UserRequest;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/addUser")
 @AllArgsConstructor
+@RequestMapping("/addUser")
 @SessionAttributes("userRequest")
 public class AddUserController {
 
     private final Facade facade;
 
     @GetMapping
-    public String viewAddUser(@RequestParam(required = false, defaultValue = "") String msg,
-                              Model model) {
-        model.addAttribute("msg", msg);
+    public String viewAddUser() {
         return "addUser";
     }
 
     @ModelAttribute
-    public UserRequest addUserModel() {
+    public UserRequest addModel(@RequestParam(required = false, defaultValue = "") String msg,
+                                    Model model) {
+        model.addAttribute("msg", msg);
         return new UserRequest();
     }
 
     @PostMapping
-    public String addUser(@Valid UserRequest userRequest, Errors errors, SessionStatus sessionStatus) {
+    public String saveUser(@Valid UserRequest userRequest, Errors errors, SessionStatus sessionStatus) {
         if (errors.hasErrors()) return "addUser";
-        facade.addUser(userRequest);
+        facade.saveUser(userRequest);
         sessionStatus.setComplete();
         return "redirect:/";
     }

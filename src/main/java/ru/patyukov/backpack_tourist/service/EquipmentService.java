@@ -5,8 +5,8 @@ import ru.patyukov.backpack_tourist.dto.EquipmentDto;
 import java.util.List;
 
 public interface EquipmentService {
-    EquipmentDto addEquipment(EquipmentDto equipmentDto);
-    List<EquipmentDto> findByHikeId(Long hikeId);
+    EquipmentDto saveEquipment(EquipmentDto equipmentDto);
+    List<EquipmentDto> findByHikeId(Long idHike);
     EquipmentDto getEquipment(Long idEquipment);
 
     void deleteEquipment(Long idEquipment);

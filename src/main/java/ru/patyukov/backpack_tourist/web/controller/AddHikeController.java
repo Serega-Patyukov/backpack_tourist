@@ -11,22 +11,29 @@ import ru.patyukov.backpack_tourist.web.request.HikeRequest;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/addHike")
 @AllArgsConstructor
+@RequestMapping("/addHike")
 public class AddHikeController {
 
     private final Facade facade;
 
     @GetMapping
-    public String addViewHike(Model model) {
-        model.addAttribute("hikeRequest", facade.addHikeModel());
+    public String viewAddHike() {
         return "addHike";
     }
 
+    @ModelAttribute
+    public void addModel(Model model) {
+
+        //todo тут нужно проверить аутентифицированного пользователя
+
+        model.addAttribute("hikeRequest", new HikeRequest());
+    }
+
     @PostMapping
-    public String addHike(@Valid HikeRequest hikeRequest, Errors errors) {
+    public String saveHike(@Valid HikeRequest hikeRequest, Errors errors) {
         if (errors.hasErrors()) return "addHike";
-        facade.addHike(hikeRequest);
+        facade.saveHike(hikeRequest);
         return "redirect:/user";
     }
 }

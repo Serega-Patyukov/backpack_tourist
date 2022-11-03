@@ -23,17 +23,17 @@ public class EditEquipmentController {
     }
 
     @ModelAttribute
-    public void addModel(Model model,
-                         @RequestParam(required = false, defaultValue = "0") Long idHike,
-                         Long idEquipment) {
-        model.addAttribute("equipmentRequest", facade.editEquipmentModel(idHike, idEquipment));
-        model.addAttribute("hikeResponse", facade.addHikeModel(idHike));
+    public void addModel(Model model, Long idEquipment) {
+
+        //todo тут нужно проверить аутентифицированного пользователя и есть ли у него поход и снаряжение с указанными id.
+
+        model.addAttribute("equipmentRequest", facade.getEquipmentRequest(idEquipment));
     }
 
     @PostMapping
-    public String addEquipment(@Valid EquipmentRequest equipmentRequest, Errors errors, Long idHike) {
+    public String saveEquipment(@Valid EquipmentRequest equipmentRequest, Errors errors) {
         if (errors.hasErrors()) return "editEquipment";
-        facade.addEquipment(equipmentRequest, idHike);
-        return "redirect:/hike?idHike=" + idHike;
+        facade.saveEquipment(equipmentRequest);
+        return "redirect:/hike?idHike=" + equipmentRequest.getIdHike();
     }
 }

@@ -8,19 +8,23 @@ import ru.patyukov.backpack_tourist.facade.Facade;
 import ru.patyukov.backpack_tourist.security.SecurityContext;
 
 @Controller
-@RequestMapping("/user")
 @AllArgsConstructor
+@RequestMapping("/user")
 public class UserController {
 
     private final Facade facade;
     private final SecurityContext securityContext;
 
     @GetMapping
-    public String viewUser(@RequestParam(required = false, defaultValue = "") String msg,
-                           Model model) {
-        model.addAttribute("msg", msg);
-        model.addAttribute("userResponse", facade.addUserModel());
+    public String viewUser() {
         return "user";
+    }
+
+    @ModelAttribute
+    public void addModel(@RequestParam(required = false, defaultValue = "") String msg,
+                         Model model) {
+        model.addAttribute("msg", msg);
+        model.addAttribute("userResponse", facade.getUserResponse());
     }
 
     @GetMapping("/exit")
@@ -32,7 +36,16 @@ public class UserController {
 
     @PostMapping
     public String deleteHike(Long idHike) {
+
+        //todo проверить наличие этого похода у туриста
+
         facade.deleteHike(idHike);
         return "redirect:/user";
+    }
+
+    @PostMapping("/deleteUser")
+    public String deleteUser(String login) {
+        facade.deleteUser(login);
+        return "redirect:/";
     }
 }

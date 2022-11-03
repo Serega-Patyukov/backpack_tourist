@@ -14,26 +14,29 @@ import ru.patyukov.backpack_tourist.web.request.HikeRequest;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/editHike")
 @AllArgsConstructor
+@RequestMapping("/editHike")
 public class EditHikeController {
 
     private final Facade facade;
 
     @GetMapping
-    public String addViewHike() {
+    public String viewEditHike() {
         return "editHike";
     }
 
     @ModelAttribute
     public void addModel(Model model, Long idHike) {
-        model.addAttribute("hikeRequest", facade.editHikeModel(idHike));
+
+        //todo тут нужно проверить аутентифицированного пользователя и есть ли у него поход с указанным id.
+
+        model.addAttribute("hikeRequest", facade.getHikeRequest(idHike));
     }
 
     @PostMapping
-    public String addHike(@Valid HikeRequest hikeRequest, Errors errors) {
-        if (errors.hasErrors()) return "addHike";
-        facade.addHike(hikeRequest);
+    public String saveHike(@Valid HikeRequest hikeRequest, Errors errors) {
+        if (errors.hasErrors()) return "editHike";
+        facade.saveHike(hikeRequest);
         return "redirect:/hike?idHike=" + hikeRequest.getId();
     }
 }

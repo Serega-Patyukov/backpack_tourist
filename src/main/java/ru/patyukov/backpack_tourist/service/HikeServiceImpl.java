@@ -20,8 +20,7 @@ public class HikeServiceImpl implements HikeService {
     private final HikeMapper hikeMapper;
 
     @Override
-    public HikeDto addHike(HikeDto hikeDto) {
-
+    public HikeDto saveHike(HikeDto hikeDto) {
         User user = new User();
         user.setLogin(hikeDto.getUserLogin());
 
@@ -39,8 +38,8 @@ public class HikeServiceImpl implements HikeService {
     }
 
     @Override
-    public HikeDto findById(Long id) {
-        Hike hike = hikeRepository.findById(id)
+    public HikeDto getHike(Long idHike) {
+        Hike hike = hikeRepository.findById(idHike)
                 .orElseThrow(() -> new BadRequestException("user redirect:/user"));
         HikeDto hikeDto = hikeMapper.hikeToHikeDto(hike);
         hikeDto.setUserLogin(hike.getUser().getLogin());

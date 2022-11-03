@@ -20,6 +20,8 @@ public class ControllerExceptionHandler {
         String[] msgSplit = msg.split("\\s");
 
         if ("login".equals(msgSplit[0])) {
+            securityContext.setLoginUser("");
+            securityContext.setPassword("");
             model.addAttribute("msg", "Не верно указан логин или пароль");
         }
 

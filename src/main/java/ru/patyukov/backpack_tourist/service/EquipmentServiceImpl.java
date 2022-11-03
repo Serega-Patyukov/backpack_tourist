@@ -19,27 +19,27 @@ public class EquipmentServiceImpl implements EquipmentService {
     private final EquipmentMapper equipmentMapper;
 
     @Override
-    public EquipmentDto addEquipment(EquipmentDto equipmentDto) {
+    public EquipmentDto saveEquipment(EquipmentDto equipmentDto) {
         Hike hike = new Hike();
-        hike.setId(equipmentDto.getHikeId());
+        hike.setId(equipmentDto.getIdHike());
+
         Equipment equipment = equipmentMapper.equipmentDtoToEquipment(equipmentDto);
         equipment.setHike(hike);
 
-        equipment = equipmentRepository.save(equipment);
-        return equipmentMapper.EquipmentToEquipmentDto(equipment);
+        return equipmentMapper.EquipmentToEquipmentDto(equipmentRepository.save(equipment));
     }
 
     @Override
-    public EquipmentDto getEquipment(Long id) {
-        Equipment equipment = equipmentRepository.findById(id).get();
+    public EquipmentDto getEquipment(Long idEquipment) {
+        Equipment equipment = equipmentRepository.findById(idEquipment).get();
         EquipmentDto equipmentDto = equipmentMapper.EquipmentToEquipmentDto(equipment);
-        equipmentDto.setHikeId(equipment.getHike().getId());
+        equipmentDto.setIdHike(equipment.getHike().getId());
         return equipmentDto;
     }
 
     @Override
-    public List<EquipmentDto> findByHikeId(Long hikeId) {
-        return equipmentRepository.findByHikeId(hikeId).stream()
+    public List<EquipmentDto> findByHikeId(Long idHike) {
+        return equipmentRepository.findByHikeId(idHike).stream()
                 .map(equipment -> equipmentMapper.EquipmentToEquipmentDto(equipment))
                 .collect(Collectors.toList());
     }

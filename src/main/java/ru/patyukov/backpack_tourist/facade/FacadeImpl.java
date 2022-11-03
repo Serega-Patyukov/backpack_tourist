@@ -24,9 +24,9 @@ import ru.patyukov.backpack_tourist.web.response.UserResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 @AllArgsConstructor
-@Slf4j
 public class FacadeImpl implements Facade {
 
     private final UserService userService;
@@ -38,24 +38,20 @@ public class FacadeImpl implements Facade {
     private final SecurityContext securityContext;
 
     @Override
-    public UserResponse addUser(UserRequest userRequest) {
-        log.info("Получил запрос на создание пользователя " + userRequest);
-        UserDto userDto = userService.addUser(userMapper.userRequestToUserDto(userRequest));
+    public UserResponse saveUser(UserRequest userRequest) {
+        UserDto userDto = userService.saveUser(userMapper.userRequestToUserDto(userRequest));
         return userMapper.userDtoToUserResponse(userDto);
     }
 
     @Override
-    public HikeResponse addHike(HikeRequest hikeRequest) {
-        login();
-        String login = securityContext.getLoginUser();
-
+    public HikeResponse saveHike(HikeRequest hikeRequest) {
         HikeDto hikeDto = hikeMapper.hikeRequestToHikeDto(hikeRequest);
-        hikeDto.setUserLogin(login);
-        return hikeMapper.hikeDtoToHikeResponse(hikeService.addHike(hikeDto));
+        hikeDto.setUserLogin(securityContext.getLoginUser());
+        return hikeMapper.hikeDtoToHikeResponse(hikeService.saveHike(hikeDto));
     }
 
     @Override
-    public UserResponse addUserModel() {
+    public UserResponse getUserResponse() {
         login();
         String login = securityContext.getLoginUser();
 
@@ -64,7 +60,7 @@ public class FacadeImpl implements Facade {
                 .map(hikeDto -> hikeMapper.hikeDtoToHikeResponse(hikeDto))
                 .collect(Collectors.toList());
 
-        UserDto userDto = userService.findById(login);
+        UserDto userDto = userService.getUser(login);
         UserResponse userResponse = userMapper.userDtoToUserResponse(userDto);
         userResponse.setHikeList(hikeResponseList);
 
@@ -72,17 +68,9 @@ public class FacadeImpl implements Facade {
     }
 
     @Override
-    public HikeRequest addHikeModel() {
-        login();
-        return new HikeRequest();
-    }
-
-    @Override
-    public HikeRequest editHikeModel(Long idHike) {
-        login();
-        HikeDto hikeDto = hikeService.findById(idHike);
-        HikeRequest hikeRequest = hikeMapper.hikeDtoToHikeRequest(hikeDto);
-        return hikeRequest;
+    public HikeRequest getHikeRequest(Long idHike) {
+        HikeDto hikeDto = hikeService.getHike(idHike);
+        return hikeMapper.hikeDtoToHikeRequest(hikeDto);
     }
 
     @Override
@@ -90,7 +78,7 @@ public class FacadeImpl implements Facade {
         login();
         String login = securityContext.getLoginUser();
 
-        HikeDto hikeDto = hikeService.findById(idHike);
+        HikeDto hikeDto = hikeService.getHike(idHike);
         if (!login.equals(hikeDto.getUserLogin())) {
             throw new BadRequestException("user redirect:/user");
         }
@@ -106,38 +94,15 @@ public class FacadeImpl implements Facade {
     }
 
     @Override
-    public EquipmentRequest addEquipmentModel() {
-        return new EquipmentRequest();
-    }
-
-    @Override
-    public EquipmentRequest editEquipmentModel(Long idHike, Long idEquipment) {
-        login();
-        String login = securityContext.getLoginUser();
-
+    public EquipmentRequest getEquipmentRequest(Long idEquipment) {
         EquipmentDto equipmentDto = equipmentService.getEquipment(idEquipment);
-        HikeDto hikeDto = hikeService.findById(idHike);
-
-        if (!login.equals(hikeDto.getUserLogin()) || !equipmentDto.getHikeId().equals(idHike)) {
-            throw new BadRequestException("user redirect:/user");
-        }
-
         return equipmentMapper.equipmentDtoToEquipmentRequest(equipmentDto);
     }
 
     @Override
-    public EquipmentResponse addEquipment(EquipmentRequest equipmentRequest, Long idHike) {
-        login();
-        String login = securityContext.getLoginUser();
-
-        HikeDto hikeDto = hikeService.findById(idHike);
-        if (!login.equals(hikeDto.getUserLogin())) {
-            throw new BadRequestException("user redirect:/user");
-        }
-
+    public EquipmentResponse saveEquipment(EquipmentRequest equipmentRequest) {
         EquipmentDto equipmentDto = equipmentMapper.equipmentRequestToEquipmentDto(equipmentRequest);
-        equipmentDto.setHikeId(idHike);
-        return equipmentMapper.equipmentDtoToEquipmentResponse(equipmentService.addEquipment(equipmentDto));
+        return equipmentMapper.equipmentDtoToEquipmentResponse(equipmentService.saveEquipment(equipmentDto));
     }
 
     @Override
@@ -147,7 +112,27 @@ public class FacadeImpl implements Facade {
 
     @Override
     public void deleteHike(Long idHike) {
+        login();
         hikeService.deleteHike(idHike);
+    }
+
+    @Override
+    public UserRequest getUserRequest(String login) {
+        login();
+        UserDto userDto = userService.getUser(login);
+        return userMapper.userDtoToUserRequest(userDto);
+    }
+
+    @Override
+    public UserResponse updateUser(UserRequest userRequest) {
+        UserDto userDto = userService.updateUser(userMapper.userRequestToUserDto(userRequest));
+        return userMapper.userDtoToUserResponse(userDto);
+    }
+
+    @Override
+    public void deleteUser(String login) {
+        login();
+        userService.deleteUser(login);
     }
 
     @Override
@@ -156,7 +141,7 @@ public class FacadeImpl implements Facade {
         String password = securityContext.getPassword();
 
         if (userService.existsById(login)) {
-            UserDto userDto = userService.findById(login);
+            UserDto userDto = userService.getUser(login);
             if (password.equals(userDto.getPassword())) {
                 return;
             }

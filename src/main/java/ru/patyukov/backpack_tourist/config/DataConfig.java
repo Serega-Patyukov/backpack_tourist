@@ -25,7 +25,7 @@ public class DataConfig {
                 userDto.setPassword("SuperUser");
                 userDto.setPhoneNumber("89009553902");
 
-                userService.addUser(userDto);
+                userService.saveUser(userDto);
             }
         };
     }

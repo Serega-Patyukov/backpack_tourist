@@ -7,24 +7,30 @@
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <link rel="stylesheet" th:href="@{/styles.css}" />
-      <title>Страница туриста</title>
+      <title th:text="${userResponse.getName()}"></title>
   </head>
   <body>
-    <h1>Страница туриста</h1>
+    <h1 th:text="${userResponse.getName()}"></h1>
     <div>тут будет приветствие от админа</div>
     <h3>
-        <a href="http://localhost:8080/addHike"><button>создать поход</button></a>
-    </h3>
-    <h3>
         <a href="http://localhost:8080/user/exit"><button>выход</button></a>
-        <button disabled>редактировать</button>
-        <button disabled>удалить</button>
+    </h3>
+    <form action="/editUser" method="get">
+        <input type="hidden" name="login" th:value="${userResponse.getLogin()}">
+        <button>редактировать аккаунт</button>
+    </form>
+    <form action="/user/deleteUser" method="post">
+        <input type="hidden" name="login" th:value="${userResponse.getLogin()}">
+        <button>удалить аккаунт</button>
+    </form>
+    <h3>
+        <a href="http://localhost:8080/addHike"><button>создать поход</button></a>
     </h3>
     <form method="get" action="/hike">
         <div>
             <span>Укажите id похода </span>
             <input name="idHike" type="number" min="1" max="9223372036854775807" required>
-            <button>просмотр</button> <span class="validationError" th:text="${msg}"></span>
+            <button>просмотр похода</button> <span class="validationError" th:text="${msg}"></span>
         </div>
     </form>
     <form action="/user" method="post">

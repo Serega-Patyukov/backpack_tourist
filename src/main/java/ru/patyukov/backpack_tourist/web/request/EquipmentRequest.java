@@ -11,6 +11,7 @@ public class EquipmentRequest {
     @Size(min = 3, message = "Введите корректно имя. Минимум 3 символа.")
     private String name;
     private GroupEquipment grp;
+    private Long idHike;
     private double weight;
     private String notes;
 }

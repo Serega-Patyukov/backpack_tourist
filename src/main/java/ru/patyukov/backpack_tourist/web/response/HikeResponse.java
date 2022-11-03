@@ -12,5 +12,6 @@ public class HikeResponse {
     private String dateStart = "";
     private String dateFinish = "";
     private List<EquipmentResponse> equipmentList = new ArrayList<>();
+    private String userLogin;
     private String notes = "";
 }

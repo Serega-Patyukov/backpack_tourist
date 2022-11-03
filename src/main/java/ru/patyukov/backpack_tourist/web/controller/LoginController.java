@@ -13,8 +13,8 @@ import ru.patyukov.backpack_tourist.web.request.UserLogPasRequest;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/login")
 @AllArgsConstructor
+@RequestMapping("/login")
 @SessionAttributes("userLogPasRequest")
 public class LoginController {
 
@@ -22,14 +22,16 @@ public class LoginController {
     private final SecurityContext securityContext;
 
     @GetMapping
-    public String viewLogin(@RequestParam(required = false, defaultValue = "Введите логин и пароль") String msg,
-                            Model model) {
-        model.addAttribute("msg", msg);
+    public String viewLogin() {
+
         return "login";
     }
 
     @ModelAttribute
-    public UserLogPasRequest addUserLogPasRequestModel() {
+    public UserLogPasRequest addModel(
+            @RequestParam(required = false, defaultValue = "Введите логин и пароль") String msg,
+            Model model) {
+        model.addAttribute("msg", msg);
         return new UserLogPasRequest();
     }
 

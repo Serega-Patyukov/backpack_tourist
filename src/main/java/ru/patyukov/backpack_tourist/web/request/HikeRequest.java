@@ -11,5 +11,6 @@ public class HikeRequest {
     private String name;
     private String dateStart = "";
     private String dateFinish = "";
+    private String userLogin;
     private String notes = "";
 }
