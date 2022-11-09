@@ -6,5 +6,5 @@ import ru.patyukov.backpack_tourist.entity.Equipment;
 import java.util.List;
 
 public interface EquipmentRepository extends CrudRepository<Equipment, Long> {
-    List<Equipment> findByHikeId(Long hikeId);
+    List<Equipment> findByHikeId(Long idHike);
 }

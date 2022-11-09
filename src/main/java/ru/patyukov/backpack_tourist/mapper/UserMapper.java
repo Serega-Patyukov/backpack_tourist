@@ -8,9 +8,9 @@ import ru.patyukov.backpack_tourist.web.response.UserResponse;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    UserDto userRequestToUserDto(UserRequest userRequest);
     UserResponse userDtoToUserResponse(UserDto userDto);
+    UserRequest userDtoToUserRequest(UserDto userDto);
+    UserDto userRequestToUserDto(UserRequest userRequest);
     UserDto userToUserDto(User user);
     User userDtoToUser(UserDto userDto);
-    UserRequest userDtoToUserRequest(UserDto userDto);
 }

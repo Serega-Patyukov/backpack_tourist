@@ -38,7 +38,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public List<EquipmentDto> findByHikeId(Long idHike) {
+    public List<EquipmentDto> findByIdHike(Long idHike) {
         return equipmentRepository.findByHikeId(idHike).stream()
                 .map(equipment -> equipmentMapper.EquipmentToEquipmentDto(equipment))
                 .collect(Collectors.toList());

@@ -32,5 +32,5 @@ public class User {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    private String notes = "";
+    private String notes;
 }

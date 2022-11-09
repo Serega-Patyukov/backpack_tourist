@@ -8,9 +8,11 @@ import ru.patyukov.backpack_tourist.web.response.EquipmentResponse;
 
 @Mapper(componentModel = "spring")
 public interface EquipmentMapper {
-    EquipmentDto equipmentRequestToEquipmentDto(EquipmentRequest equipmentRequest);
     EquipmentResponse equipmentDtoToEquipmentResponse(EquipmentDto equipmentDto);
     EquipmentRequest equipmentDtoToEquipmentRequest(EquipmentDto equipmentDto);
-    Equipment equipmentDtoToEquipment(EquipmentDto equipmentDto);
+
+    EquipmentDto equipmentRequestToEquipmentDto(EquipmentRequest equipmentRequest);
     EquipmentDto EquipmentToEquipmentDto(Equipment equipment);
+
+    Equipment equipmentDtoToEquipment(EquipmentDto equipmentDto);
 }

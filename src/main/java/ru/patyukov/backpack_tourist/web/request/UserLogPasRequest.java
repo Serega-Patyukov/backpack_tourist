@@ -10,8 +10,8 @@ public class UserLogPasRequest {
     private long id;
 
     @Size(min = 3, message = "Минимум 3 символа.")
-    private String login = "";
+    private String login;
 
     @Size(min = 8, message = "Минимум 8 символов.")
-    private String password = "";
+    private String password;
 }

@@ -4,10 +4,8 @@ import ru.patyukov.backpack_tourist.dto.UserDto;
 
 public interface UserService {
     UserDto saveUser(UserDto user);
-    boolean existsById(String login);
-    UserDto getUser(String login);
-
     UserDto updateUser(UserDto userRequestToUserDto);
-
+    UserDto getUser(String login);
+    boolean existsById(String login);
     void deleteUser(String login);
 }

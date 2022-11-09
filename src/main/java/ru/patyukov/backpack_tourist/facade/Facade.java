@@ -10,16 +10,25 @@ import ru.patyukov.backpack_tourist.web.response.UserResponse;
 
 public interface Facade {
     UserResponse saveUser(UserRequest UserRequest);
-    HikeResponse saveHike(HikeRequest hikeRequest);
+    UserResponse updateUser(UserRequest userRequest);
     UserResponse getUserResponse();
-    HikeResponse addHikeModel(Long idHike);
+    UserRequest getUserRequest(String login);
+    void deleteUser(String login);
+
+
+
+    HikeResponse saveHike(HikeRequest hikeRequest);
+    HikeResponse getHikeResponse(Long idHike);
+    HikeRequest getHikeRequest(Long idHike);
+    void deleteHike(Long idHike);
+
+
+
     EquipmentResponse saveEquipment(EquipmentRequest equipmentRequest);
     EquipmentRequest getEquipmentRequest(Long idEquipment);
     void deleteEquipment(Long idEquipment);
-    HikeRequest getHikeRequest(Long idHike);
+
+
+
     void login();
-    void deleteHike(Long idHike);
-    UserRequest getUserRequest(String login);
-    UserResponse updateUser(UserRequest userRequest);
-    void deleteUser(String login);
 }

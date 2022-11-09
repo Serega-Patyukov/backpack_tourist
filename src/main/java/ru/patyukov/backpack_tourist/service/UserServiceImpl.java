@@ -27,8 +27,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean existsById(String login) {
-        return userRepository.existsById(login);
+    public UserDto updateUser(UserDto userDto) {
+        User user = userRepository.save(userMapper.userDtoToUser(userDto));
+        securityContext.setPassword(user.getPassword());
+        return userMapper.userToUserDto(user);
     }
 
     @Override
@@ -39,10 +41,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(UserDto userDto) {
-        User user = userRepository.save(userMapper.userDtoToUser(userDto));
-        securityContext.setPassword(user.getPassword());
-        return userMapper.userToUserDto(user);
+    public boolean existsById(String login) {
+        return userRepository.existsById(login);
     }
 
     @Override

@@ -9,5 +9,5 @@ public class UserDto {
     private String name;
     private String authority = "user";
     private String phoneNumber;
-    private String notes = "";
+    private String notes;
 }

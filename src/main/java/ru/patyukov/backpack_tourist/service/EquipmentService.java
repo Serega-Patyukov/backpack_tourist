@@ -6,8 +6,7 @@ import java.util.List;
 
 public interface EquipmentService {
     EquipmentDto saveEquipment(EquipmentDto equipmentDto);
-    List<EquipmentDto> findByHikeId(Long idHike);
     EquipmentDto getEquipment(Long idEquipment);
-
+    List<EquipmentDto> findByIdHike(Long idHike);
     void deleteEquipment(Long idEquipment);
 }

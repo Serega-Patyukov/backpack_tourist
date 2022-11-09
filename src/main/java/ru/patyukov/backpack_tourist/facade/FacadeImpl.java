@@ -42,14 +42,11 @@ public class FacadeImpl implements Facade {
         UserDto userDto = userService.saveUser(userMapper.userRequestToUserDto(userRequest));
         return userMapper.userDtoToUserResponse(userDto);
     }
-
     @Override
-    public HikeResponse saveHike(HikeRequest hikeRequest) {
-        HikeDto hikeDto = hikeMapper.hikeRequestToHikeDto(hikeRequest);
-        hikeDto.setUserLogin(securityContext.getLoginUser());
-        return hikeMapper.hikeDtoToHikeResponse(hikeService.saveHike(hikeDto));
+    public UserResponse updateUser(UserRequest userRequest) {
+        UserDto userDto = userService.updateUser(userMapper.userRequestToUserDto(userRequest));
+        return userMapper.userDtoToUserResponse(userDto);
     }
-
     @Override
     public UserResponse getUserResponse() {
         login();
@@ -66,15 +63,28 @@ public class FacadeImpl implements Facade {
 
         return userResponse;
     }
-
     @Override
-    public HikeRequest getHikeRequest(Long idHike) {
-        HikeDto hikeDto = hikeService.getHike(idHike);
-        return hikeMapper.hikeDtoToHikeRequest(hikeDto);
+    public UserRequest getUserRequest(String login) {
+        login();
+        UserDto userDto = userService.getUser(login);
+        return userMapper.userDtoToUserRequest(userDto);
+    }
+    @Override
+    public void deleteUser(String login) {
+        login();
+        userService.deleteUser(login);
     }
 
+
+
     @Override
-    public HikeResponse addHikeModel(Long idHike) {
+    public HikeResponse saveHike(HikeRequest hikeRequest) {
+        HikeDto hikeDto = hikeMapper.hikeRequestToHikeDto(hikeRequest);
+        hikeDto.setUserLogin(securityContext.getLoginUser());
+        return hikeMapper.hikeDtoToHikeResponse(hikeService.saveHike(hikeDto));
+    }
+    @Override
+    public HikeResponse getHikeResponse(Long idHike) {
         login();
         String login = securityContext.getLoginUser();
 
@@ -83,7 +93,7 @@ public class FacadeImpl implements Facade {
             throw new BadRequestException("user redirect:/user");
         }
 
-        List<EquipmentDto> equipmentDtoList = equipmentService.findByHikeId(idHike);
+        List<EquipmentDto> equipmentDtoList = equipmentService.findByIdHike(idHike);
 
         HikeResponse hikeResponse = hikeMapper.hikeDtoToHikeResponse(hikeDto);
         hikeResponse.setEquipmentList(equipmentDtoList.stream()
@@ -92,48 +102,35 @@ public class FacadeImpl implements Facade {
 
         return hikeResponse;
     }
-
     @Override
-    public EquipmentRequest getEquipmentRequest(Long idEquipment) {
-        EquipmentDto equipmentDto = equipmentService.getEquipment(idEquipment);
-        return equipmentMapper.equipmentDtoToEquipmentRequest(equipmentDto);
+    public HikeRequest getHikeRequest(Long idHike) {
+        HikeDto hikeDto = hikeService.getHike(idHike);
+        return hikeMapper.hikeDtoToHikeRequest(hikeDto);
     }
-
-    @Override
-    public EquipmentResponse saveEquipment(EquipmentRequest equipmentRequest) {
-        EquipmentDto equipmentDto = equipmentMapper.equipmentRequestToEquipmentDto(equipmentRequest);
-        return equipmentMapper.equipmentDtoToEquipmentResponse(equipmentService.saveEquipment(equipmentDto));
-    }
-
-    @Override
-    public void deleteEquipment(Long idEquipment) {
-        equipmentService.deleteEquipment(idEquipment);
-    }
-
     @Override
     public void deleteHike(Long idHike) {
         login();
         hikeService.deleteHike(idHike);
     }
 
-    @Override
-    public UserRequest getUserRequest(String login) {
-        login();
-        UserDto userDto = userService.getUser(login);
-        return userMapper.userDtoToUserRequest(userDto);
-    }
+
 
     @Override
-    public UserResponse updateUser(UserRequest userRequest) {
-        UserDto userDto = userService.updateUser(userMapper.userRequestToUserDto(userRequest));
-        return userMapper.userDtoToUserResponse(userDto);
+    public EquipmentResponse saveEquipment(EquipmentRequest equipmentRequest) {
+        EquipmentDto equipmentDto = equipmentMapper.equipmentRequestToEquipmentDto(equipmentRequest);
+        return equipmentMapper.equipmentDtoToEquipmentResponse(equipmentService.saveEquipment(equipmentDto));
+    }
+    @Override
+    public EquipmentRequest getEquipmentRequest(Long idEquipment) {
+        EquipmentDto equipmentDto = equipmentService.getEquipment(idEquipment);
+        return equipmentMapper.equipmentDtoToEquipmentRequest(equipmentDto);
+    }
+    @Override
+    public void deleteEquipment(Long idEquipment) {
+        equipmentService.deleteEquipment(idEquipment);
     }
 
-    @Override
-    public void deleteUser(String login) {
-        login();
-        userService.deleteUser(login);
-    }
+
 
     @Override
     public void login() {

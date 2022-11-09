@@ -11,5 +11,5 @@ public class UserResponse {
     private String name;
     private List<HikeResponse> hikeList = new ArrayList<>();
     private String phoneNumber;
-    private String notes = "";
+    private String notes;
 }

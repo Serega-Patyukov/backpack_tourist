@@ -20,5 +20,5 @@ public class UserRequest {
             message = "Введите корректно номер телефона. Должно быть 11 цифр. Первая цифра +7 или 8.")
     private String phoneNumber;
 
-    private String notes = "";
+    private String notes;
 }

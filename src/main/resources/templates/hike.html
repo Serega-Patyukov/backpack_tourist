@@ -6,7 +6,8 @@
       <meta name="viewport"
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <link rel="stylesheet" th:href="@{/styles.css}" />
+      <link rel="stylesheet" th:href="@{/styles/styles.css}" />
+      <link rel="stylesheet" th:href="@{/styles/stylesHike.css}">
       <title th:text="${hikeResponse.getName()}"></title>
   </head>
   <body>
@@ -29,38 +30,97 @@
           <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
           <button>добавить снаряжение</button>
       </form>
-      <form action="/editEquipment" method="get">
-          <span>Укажите id снаряжения: </span>
-          <input name="idEquipment" type="number" min="1" max="9223372036854775807" required>
-          <button>редактировать снаряжение</button>
-      </form>
-      <form action="/hike" method="post">
-          <span>Укажите id снаряжения: </span>
-          <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
-          <input name="idEquipment" type="number" min="1" max="9223372036854775807" required>
-          <button>удалить снаряжение</button>
-      </form>
+      <table class="H_TableHike">
+          <tr class="H_tr" th:each="equipmentList : ${listGroupEquipment}">
+              <td class="H_td">
+                  <h3>
+                      <span th:if="${equipmentList.get(0).getGrp().toString().equals('PERSONAL_EQUIPMENT')}">личное снаряжение</span>
+                      <span th:if="${equipmentList.get(0).getGrp().toString().equals('PUBLIC_EQUIPMENT')}">общественное снаряжение</span>
+                      <span th:if="${equipmentList.get(0).getGrp().toString().equals('PERSONAL_HYGIENE')}">личная гигиена</span>
+                      <span th:if="${equipmentList.get(0).getGrp().toString().equals('WALKING_CLOTHES')}">ходовая одежда</span>
+                      <span th:if="${equipmentList.get(0).getGrp().toString().equals('SLEEP_CLOTHES')}">одежда для сна</span>
+                      <span th:if="${equipmentList.get(0).getGrp().toString().equals('FIRST_AID_KIT')}">аптечка</span>
+                      <span th:if="${equipmentList.get(0).getGrp().toString().equals('PUBLIC_FOOD')}">общественная еда</span>
+                      <span th:if="${equipmentList.get(0).getGrp().toString().equals('PHOTO_VIDEO')}">фото видео</span>
+                      <span th:if="${equipmentList.get(0).getGrp().toString().equals('DOCUMENTS')}">документы</span>
+                      <span th:if="${equipmentList.get(0).getGrp().toString().equals('REM_KIT')}">рем комплект</span>
+                      <span th:if="${equipmentList.get(0).getGrp().toString().equals('RESERVE')}">резерв</span>
+                  </h3>
+              </td>
+              <td class="H_td">
+                  <table class="H_TableHike_2">
+                      <tr class="H_tr">
+                          <td class="H_LengthName H_td"><h4>название</h4></td>
+                          <td class="H_LengthWeight H_td"><h4>вес</h4></td>
+                          <td class="H_LengthNotes H_td"><h4>примечания</h4></td>
+                          <td class="H_LengthEdit H_td"><h4>действие</h4></td>
+                          <td class="H_LengthDelete  H_td H_td_text_right"><h4>действие</h4></td>
+                      </tr>
+                      <tr th:if="${editEquipment == 0}" class="H_tr" th:each="equipment : ${equipmentList}">
+                          <td class="H_LengthName H_td"><span th:text="${equipment.getName()}"></span></td>
+                          <td class="H_LengthWeight H_td"><span th:text="${equipment.getWeight()}"></span></td>
+                          <td class="H_LengthNotes H_td"><span th:text="${equipment.getNotes()}"></span></td>
+                          <td class="H_LengthEdit H_td">
+                              <form action="/hike" method="get">
+                                  <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
+                                  <input type="hidden" name="editEquipment"  th:value="${equipment.getId()}">
+                                  <button>редактировать</button>
+                              </form>
+                          </td>
+                          <td class="H_LengthDelete H_td H_td_text_right">
+                              <form action="/hike" method="post">
+                                  <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
+                                  <input type="hidden" name="idEquipment"  th:value="${equipment.getId()}">
+                                  <button>удалить</button>
+                              </form>
+                          </td>
+                      </tr>
+                      <tr th:if="${editEquipment != 0}" class="H_tr" th:each="equipment : ${equipmentList}">
+                          <form action="/hike/editEquipment" method="post" th:object="${equipmentRequest}">
+                              <td th:if="${editEquipment == equipment.getId()}" class="H_LengthName H_td H_td_color"><input class="H_LengthName_2" type="text" th:field="*{name}">
+                                  <div class="validationError"
+                                       th:if="${#fields.hasErrors('name')}"
+                                       th:errors="*{name}">name
+                                  </div>
+                              </td>
+                              <td th:if="${editEquipment == equipment.getId()}" class="H_LengthWeight H_td H_td_color"><input class="H_LengthWeight_2" type="number" th:field="*{weight}"></td>
+                              <td th:if="${editEquipment == equipment.getId()}" class="H_LengthNotes H_td H_td_color"><textarea class="H_LengthNotes_2" th:field="*{notes}"></textarea></span></td>
 
-      <div th:each="equipmentList : ${listGroupEquipment}">
-          <h3>
-              <span th:if="${equipmentList.get(0).getGrp().toString().equals('PERSONAL_EQUIPMENT')}">личное снаряжение</span>
-              <span th:if="${equipmentList.get(0).getGrp().toString().equals('PUBLIC_EQUIPMENT')}">общественное снаряжение</span>
-              <span th:if="${equipmentList.get(0).getGrp().toString().equals('PERSONAL_HYGIENE')}">личная гигиена</span>
-              <span th:if="${equipmentList.get(0).getGrp().toString().equals('WALKING_CLOTHES')}">ходовая одежда</span>
-              <span th:if="${equipmentList.get(0).getGrp().toString().equals('SLEEP_CLOTHES')}">одежда для сна</span>
-              <span th:if="${equipmentList.get(0).getGrp().toString().equals('FIRST_AID_KIT')}">аптечка</span>
-              <span th:if="${equipmentList.get(0).getGrp().toString().equals('PUBLIC_FOOD')}">общественная еда</span>
-              <span th:if="${equipmentList.get(0).getGrp().toString().equals('PHOTO_VIDEO')}">фото видео</span>
-              <span th:if="${equipmentList.get(0).getGrp().toString().equals('DOCUMENTS')}">документы</span>
-              <span th:if="${equipmentList.get(0).getGrp().toString().equals('REM_KIT')}">рем комплект</span>
-              <span th:if="${equipmentList.get(0).getGrp().toString().equals('RESERVE')}">резерв</span>
-          </h3>
-          <div th:each="equipment : ${equipmentList}">
-              <span th:text="${equipment.getId()}"></span>
-              <span th:text="${equipment.getName()}"></span>
-              <span th:text="${equipment.getWeight()}"></span>
-              <span th:text="${equipment.getNotes()}"></span>
-          </div>
-      </div>
+                              <td th:if="${editEquipment != equipment.getId()}" class="H_LengthName H_td "><span th:text="${equipment.getName()}"></span></td>
+                              <td th:if="${editEquipment != equipment.getId()}" class="H_LengthWeight H_td"><span th:text="${equipment.getWeight()}"></span></td>
+                              <td th:if="${editEquipment != equipment.getId()}" class="H_LengthNotes H_td"><span th:text="${equipment.getNotes()}"></span></td>
+
+                              <td th:if="${editEquipment == equipment.getId()}" class="H_LengthEdit H_td H_td_color">
+                                  <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
+                                  <input type="hidden" name="editEquipment"  th:value="${editEquipment}">
+                                  <button>сохранить</button>
+                              </td>
+                          </form>
+
+                          <td th:if="${editEquipment == equipment.getId()}" class="H_LengthDelete H_td H_td_text_right H_td_color">
+                              <form action="/hike" method="get">
+                                  <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
+                                  <button>отмена</button>
+                              </form>
+                          </td>
+                          <td th:if="${editEquipment != equipment.getId()}" class="H_LengthEdit H_td">
+                              <form action="/hike" method="get">
+                                  <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
+                                  <input type="hidden" name="editEquipment"  th:value="${equipment.getId()}">
+                                  <button>редактировать</button>
+                              </form>
+                          </td>
+                          <td th:if="${editEquipment != equipment.getId()}" class="H_LengthDelete H_td H_td_text_right">
+                              <form action="/hike" method="post">
+                                  <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
+                                  <input type="hidden" name="idEquipment"  th:value="${equipment.getId()}">
+                                  <button>удалить</button>
+                              </form>
+                          </td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+      </table>
   </body>
 </html>

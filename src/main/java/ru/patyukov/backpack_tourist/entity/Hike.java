@@ -33,7 +33,7 @@ public class Hike {
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "hike",
             cascade = CascadeType.ALL)
-    private List<Equipment> equipmentList = new ArrayList<>();   // Список снаряжения
+    private List<Equipment> equipmentList = new ArrayList<>();
 
-    private String notes = "";   // Примечания
+    private String notes;
 }

@@ -1,0 +1,57 @@
+.H_LengthWeight {
+    width: 70px;
+}
+
+.H_LengthWeight_2 {
+    width: 62px;
+}
+
+.H_LengthName {
+    width: 150px;
+}
+
+.H_LengthName_2 {
+    width: 142px;
+}
+
+.H_LengthNotes {
+    width: 300px;
+}
+
+.H_LengthNotes_2 {
+    width: 294px;
+}
+
+.H_LengthEdit {
+    width: 150px;
+}
+
+.H_LengthDelete {
+    width: 75px;
+}
+
+.H_TableHike {
+    border-collapse: collapse;
+    border: 2px solid black;
+    margin: 10px auto;
+}
+
+.H_TableHike_2 {
+    border-collapse: collapse;
+}
+
+.H_tr {
+    border: 1px solid black;
+}
+
+.H_td {
+    border: 1px solid black;
+}
+
+.H_td_text_right {
+    text-align: right;
+}
+
+.H_td_color {
+    background-color: #9ca3e3;
+}

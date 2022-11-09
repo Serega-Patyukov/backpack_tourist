@@ -9,9 +9,9 @@ import java.util.List;
 public class HikeResponse {
     private long id;
     private String name;
-    private String dateStart = "";
-    private String dateFinish = "";
+    private String dateStart;
+    private String dateFinish;
     private List<EquipmentResponse> equipmentList = new ArrayList<>();
     private String userLogin;
-    private String notes = "";
+    private String notes;
 }

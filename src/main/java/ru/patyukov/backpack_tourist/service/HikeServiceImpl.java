@@ -31,19 +31,19 @@ public class HikeServiceImpl implements HikeService {
     }
 
     @Override
-    public List<HikeDto> findByUserLogin(String login) {
-        return hikeRepository.findByUserLogin(login).stream()
-                .map(hike -> hikeMapper.hikeToHikeDto(hike))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public HikeDto getHike(Long idHike) {
         Hike hike = hikeRepository.findById(idHike)
                 .orElseThrow(() -> new BadRequestException("user redirect:/user"));
         HikeDto hikeDto = hikeMapper.hikeToHikeDto(hike);
         hikeDto.setUserLogin(hike.getUser().getLogin());
         return hikeDto;
+    }
+
+    @Override
+    public List<HikeDto> findByUserLogin(String login) {
+        return hikeRepository.findByUserLogin(login).stream()
+                .map(hike -> hikeMapper.hikeToHikeDto(hike))
+                .collect(Collectors.toList());
     }
 
     @Override
