@@ -6,48 +6,65 @@
       <meta name="viewport"
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <link rel="stylesheet" th:href="@{/styles/styles.css}" />
+      <link rel="stylesheet" th:href="@{/styles/stylesUser.css}" />
       <title th:text="${userResponse.getName()}"></title>
   </head>
   <body>
-    <h1 th:text="${userResponse.getName()}"></h1>
-    <div>тут будет приветствие от админа</div>
-    <h3>
-        <a href="http://localhost:8080/user/exit"><button>выход</button></a>
-    </h3>
-    <form action="/editUser" method="get">
-        <input type="hidden" name="login" th:value="${userResponse.getLogin()}">
-        <button>редактировать аккаунт</button>
-    </form>
-    <form action="/user/deleteUser" method="post">
-        <input type="hidden" name="login" th:value="${userResponse.getLogin()}">
-        <button>удалить аккаунт</button>
-    </form>
-    <h3>
-        <a href="http://localhost:8080/addHike"><button>создать поход</button></a>
-    </h3>
-    <form method="get" action="/hike">
-        <div>
-            <span>Укажите id похода </span>
-            <input name="idHike" type="number" min="1" max="9223372036854775807" required>
-            <button>просмотр похода</button> <span class="validationError" th:text="${msg}"></span>
-        </div>
-    </form>
-    <form action="/user" method="post">
-        <span>Укажите id похода </span>
-        <input name="idHike" type="number" min="1" max="9223372036854775807" required>
-        <button>удалить поход</button>
-    </form>
-    <h3>Список походов:</h3>
-    <div th:object="${userResponse}">
-        <span class="validationError" th:if="*{getHikeList().size() == 0}">в походы не ходил</span>
-        <div th:each="hike : *{getHikeList()}">
-            <span th:text="${hike.getId()}"></span>
-            <span> - </span>
-            <span th:text="${hike.getName()}"></span>
-            <span>. Начало - </span> <span th:text="${hike.getDateStart()}"></span>
-            <span>. Конец - </span> <span th:text="${hike.getDateFinish()}"></span>
+
+    <div class="Menu_User Box_User">
+        <span th:text="${userResponse.getName()}"></span>
+        <div class="MenuSmall_User">
+            <form class="Button_User" action="http://localhost:8080/addHike" method="get">
+                <button>создать поход</button>
+            </form>
+            <form class="Button_User" action="/editUser" method="get">
+                <input type="hidden" name="login" th:value="${userResponse.getLogin()}">
+                <button>редактировать аккаунт</button>
+            </form>
+            <form class="Button_User" action="/user/deleteUser" method="post">
+                <input type="hidden" name="login" th:value="${userResponse.getLogin()}">
+                <button>удалить аккаунт</button>
+            </form>
+            <form class="Button_User" action="http://localhost:8080/user/exit" method="get">
+                <button>выход</button>
+            </form>
         </div>
     </div>
+    <table class="U_Table" th:object="${userResponse}">
+        <thead>
+            <tr>
+                <th><h3>Список походов</h3></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="U_tr">
+                <td class="U_td"><h4>Название</h4></td>
+                <td class="U_td"><h4>Начало</h4></td>
+                <td class="U_td"><h4>Конец</h4></td>
+                <td class="U_td"><h4>Примечания</h4></td>
+                <td class="U_td"><h4>Действие</h4></td>
+                <td class="U_td"><h4>Действие</h4></td>
+            </tr>
+            <tr class="U_tr" th:each="hike : *{getHikeList()}">
+                <td class="U_td" th:text="${hike.getName()}"></td>
+                <td class="U_td" th:text="${hike.getDateStart()}"></td>
+                <td class="U_td" th:text="${hike.getDateFinish()}"></td>
+                <td class="U_td" th:text="${hike.getNotes()}"></td>
+                <td class="U_td U_LengthView" >
+                    <form method="get" action="/hike">
+                        <input name="idHike" type="hidden" th:value="${hike.getId()}">
+                        <button>просмотр</button>
+                        </div>
+                    </form>
+                </td>
+                <td class="U_td">
+                    <form action="/user" method="post">
+                        <input name="idHike" type="hidden" th:value="${hike.getId()}">
+                        <button>удалить</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
   </body>
 </html>

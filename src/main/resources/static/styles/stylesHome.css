@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+}
+
+.Box_Home {
+    width: 1170px;
+    margin: 5px auto;
+    border-radius: 10px;
+    padding: 10px;
+    background: chartreuse;
+}
+
+.Form_Home {
+}
+
+.Menu_Home {
+    /*следующ ая строка размещает дивы друг за другом*/
+    display: flex;
+    /*следующая строка разносит все элементы в стороны*/
+    justify-content: space-between;
+    /*тут все выравнивается по горизонтали по центру*/
+    align-items: center;
+}
+
+.Main_Home {
+    text-align: center;
+    padding: 2px;
+}
+
+.Description_Home {
+    padding: 2px;
+}
+
+.ValidationError_Home {
+    color: red;
+}
+
+.td_text_right_Home {
+    text-align: right;
+}
+
+input, textarea {
+    width: 200px;
+}

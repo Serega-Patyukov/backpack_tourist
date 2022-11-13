@@ -31,7 +31,7 @@ public class UserController {
     public String userExit() {
         securityContext.setLoginUser("");
         securityContext.setPassword("");
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @PostMapping

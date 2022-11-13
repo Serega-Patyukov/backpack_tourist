@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto saveUser(UserDto userDto) {
         if (existsById(userDto.getLogin())) {
-            throw new BadRequestException("addUser redirect:/addUser");
+            throw new BadRequestException("addUser redirect:/home");
         }
         User user = userRepository.save(userMapper.userDtoToUser(userDto));
         return userMapper.userToUserDto(user);

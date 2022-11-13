@@ -143,6 +143,6 @@ public class FacadeImpl implements Facade {
                 return;
             }
         }
-        throw new BadRequestException("login redirect:/login");
+        throw new BadRequestException("login redirect:/home");
     }
 }

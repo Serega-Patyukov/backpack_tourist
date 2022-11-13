@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+
+.Box_User {
+    width: 1170px;
+    margin: 5px auto;
+    border-radius: 10px;
+    padding: 10px;
+    background: chartreuse;
+}
+
+.Menu_User {
+    /*следующ ая строка размещает дивы друг за другом*/
+    display: flex;
+    /*следующая строка разносит все элементы в стороны*/
+    justify-content: space-between;
+    /*тут все выравнивается по горизонтали по центру*/
+    align-items: center;
+}
+
+.MenuSmall_User {
+    display: flex;
+}
+
+.Button_User {
+    padding-left: 20px;
+}
+
+
+
+
+
+
+
+
+.U_Table {
+    border-collapse: collapse;
+    border: 2px solid black;
+    margin: 10px auto;
+}
+
+.U_tr {
+    border: 1px solid black;
+}
+
+.U_td {
+    border: 1px solid black;
+}
+
+.U_LengthView {
+    width: 150px;
+}

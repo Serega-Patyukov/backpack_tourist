@@ -22,13 +22,13 @@ public class ControllerExceptionHandler {
         if ("login".equals(msgSplit[0])) {
             securityContext.setLoginUser("");
             securityContext.setPassword("");
-            model.addAttribute("msg", "Не верно указан логин или пароль");
+            model.addAttribute("msg", "Логин или пароль указан не верно");
         }
 
         if ("addUser".equals(msgSplit[0])) {
             securityContext.setLoginUser("");
             securityContext.setPassword("");
-            model.addAttribute("msg", "Логин занят");
+            model.addAttribute("reg", "Логин занят");
         }
 
         if ("user".equals(msgSplit[0])) {
