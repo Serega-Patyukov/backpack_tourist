@@ -11,10 +11,11 @@
   </head>
   <body>
 
-    <div class="Menu_User Box_User">
+    <div th:if="${!addHike.equals('add')}" class="Menu_User Box_User">
         <span th:text="${userResponse.getName()}"></span>
         <div class="MenuSmall_User">
-            <form class="Button_User" action="http://localhost:8080/addHike" method="get">
+            <form class="Button_User" action="http://localhost:8080/user" method="get">
+                <input type="hidden" name="addHike" th:value="${'add'}">
                 <button>создать поход</button>
             </form>
             <form class="Button_User" action="/editUser" method="get">
@@ -30,6 +31,44 @@
             </form>
         </div>
     </div>
+
+    <div th:if="${addHike.equals('add')}" class="Box_User">
+        <h3>Создание похода</h3>
+        <form action="http://localhost:8080/user/addHike" method="post" th:object="${hikeRequest}">
+            <div>
+                <span>Название: </span>
+                <input type="text" th:field="*{name}">
+                <span class="ValidationError_User">*</span>
+                <span class="ValidationError_User"
+                      th:if="${#fields.hasErrors('name')}"
+                      th:errors="*{name}">name
+              </span>
+            </div>
+            <div>
+                <span>Начало: </span>
+                <input type="date" th:field="*{dateStart}">
+            </div>
+            <div>
+                <span>Конец: </span>
+                <input type="date" th:field="*{dateFinish}">
+            </div>
+            <div>
+                <span>Примечания: </span>
+                <textarea th:field="*{notes}"></textarea>
+            </div>
+            <h3>Поля со * обязательны для заполнения</h3>
+            <div>
+                <button>создать</button>
+                <span class="ValidationError_User" th:text="${msg}"></span>
+            </div>
+        </form>
+        <form action="http://localhost:8080/user" method="get">
+            <h3>
+                <button>отмена</button>
+            </h3>
+        </form>
+    </div>
+
     <table class="U_Table" th:object="${userResponse}">
         <thead>
             <tr>

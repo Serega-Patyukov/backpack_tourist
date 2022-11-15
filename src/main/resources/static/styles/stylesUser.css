@@ -27,6 +27,10 @@
     padding-left: 20px;
 }
 
+.ValidationError_User {
+    color: red;
+}
+
 
 
 
