@@ -11,14 +11,14 @@
   </head>
   <body>
 
-    <div th:if="${!addHike.equals('add')}" class="Menu_User Box_User">
+    <div th:if="${!addHike.equals('add') && login.isEmpty()}" class="Menu_User Box_User">
         <span th:text="${userResponse.getName()}"></span>
         <div class="MenuSmall_User">
             <form class="Button_User" action="http://localhost:8080/user" method="get">
                 <input type="hidden" name="addHike" th:value="${'add'}">
                 <button>создать поход</button>
             </form>
-            <form class="Button_User" action="/editUser" method="get">
+            <form class="Button_User" action="http://localhost:8080/user" method="get">
                 <input type="hidden" name="login" th:value="${userResponse.getLogin()}">
                 <button>редактировать аккаунт</button>
             </form>
@@ -59,6 +59,54 @@
             <h3>Поля со * обязательны для заполнения</h3>
             <div>
                 <button>создать</button>
+                <span class="ValidationError_User" th:text="${msg}"></span>
+            </div>
+        </form>
+        <form action="http://localhost:8080/user" method="get">
+            <h3>
+                <button>отмена</button>
+            </h3>
+        </form>
+    </div>
+
+    <div th:if="${login.length() > 0}" th:class="Box_User">
+        <h3>Редактирование туриста</h3>
+        <form action="http://localhost:8080/user/editUser" method="post" th:object="${userRequest}">
+            <div>
+                <span>Имя: </span>
+                <input type="text" th:field="*{name}">
+                <span class="ValidationError_User">*</span>
+                <span class="ValidationError_User"
+                      th:if="${#fields.hasErrors('name')}"
+                      th:errors="*{name}">name
+                </span>
+            </div>
+            <div>
+                <span>Пароль: </span>
+                <input type="text" th:field="*{password}">
+                <span class="ValidationError_User">*</span>
+                <span class="ValidationError_User"
+                      th:if="${#fields.hasErrors('password')}"
+                      th:errors="*{password}">password
+                </span>
+            </div>
+            <div>
+                <span>Номер телефона: </span>
+                <input type="text" th:field="*{phoneNumber}">
+                <span class="ValidationError_User">*</span>
+                <span class="ValidationError_User"
+                      th:if="${#fields.hasErrors('phoneNumber')}"
+                      th:errors="*{phoneNumber}">phoneNumber
+                </span>
+            </div>
+            <div>
+                <span>Примечания: </span>
+                <textarea th:field="*{notes}"></textarea>
+            </div>
+            <h3 class="info">Поля со * обязательны для заполнения</h3>
+            <input type="hidden" name="login" th:value="${userRequest.getLogin()}">
+            <div>
+                <button>сохранить изменения</button>
                 <span class="ValidationError_User" th:text="${msg}"></span>
             </div>
         </form>

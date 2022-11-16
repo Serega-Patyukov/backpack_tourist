@@ -26,7 +26,7 @@ public class EditUserController {
         return facade.getUserRequest(login);
     }
 
-    @PostMapping
+    @PostMapping("/editUser")
     public String updateUser(@Valid UserRequest userRequest, Errors errors) {
         if (errors.hasErrors()) return "editUser";
         facade.updateUser(userRequest);
