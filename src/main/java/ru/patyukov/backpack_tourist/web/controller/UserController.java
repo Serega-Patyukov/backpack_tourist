@@ -29,6 +29,8 @@ public class UserController {
     public void addModel(@RequestParam(required = false, defaultValue = "") String msg,
                          @RequestParam(required = false, defaultValue = "") String addHike,
                          @RequestParam(required = false, defaultValue = "") String login,
+                         @RequestParam(required = false, defaultValue = "0") Long idHike,
+                         @RequestParam(required = false, defaultValue = "0") Long editHike,
                          Model model) {
         model.addAttribute("msg", msg);
         model.addAttribute("addHike", addHike);
@@ -40,6 +42,10 @@ public class UserController {
         } else {
             model.addAttribute("login", login);
         }
+        if (idHike > 0) {
+            model.addAttribute("hikeRequest", facade.getHikeRequest(idHike));
+        }
+        model.addAttribute("editHike", editHike);
     }
 
     @GetMapping("/exit")
@@ -83,6 +89,17 @@ public class UserController {
             return "user";
         }
         facade.updateUser(userRequest);
+        return "redirect:/user";
+    }
+
+    @PostMapping("/editHike")
+    public String editHike(@Valid HikeRequest hikeRequest, Errors errors, Model model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("editHike", hikeRequest.getId());
+            model.addAttribute("msg", "Введите данные корректно");
+            return "user";
+        }
+        facade.saveHike(hikeRequest);
         return "redirect:/user";
     }
 }
