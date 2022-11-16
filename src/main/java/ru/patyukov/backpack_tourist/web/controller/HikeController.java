@@ -28,7 +28,17 @@ public class HikeController {
     @ModelAttribute
     public void addModel(Model model,
                          Long idHike,
-                         @RequestParam(required = false, defaultValue = "0") Long editEquipment) {
+                         @RequestParam(required = false, defaultValue = "0") Long editEquipment,
+                         @RequestParam(required = false, defaultValue = "") String addEquipment) {
+
+        if (!addEquipment.isEmpty()) {
+            EquipmentRequest equipmentRequest = new EquipmentRequest();
+            equipmentRequest.setIdHike(idHike);
+            model.addAttribute("equipmentRequest", equipmentRequest);
+            model.addAttribute("addEquipment", "add");
+        } else {
+            model.addAttribute("addEquipment", "");
+        }
 
         if (editEquipment > 0) model.addAttribute("equipmentRequest", facade.getEquipmentRequest(editEquipment));
         HikeResponse hikeResponse = facade.getHikeResponse(idHike);
@@ -47,8 +57,19 @@ public class HikeController {
     }
 
     @PostMapping("/editEquipment")
-    public String saveEquipment(@Valid EquipmentRequest equipmentRequest, Errors errors) {
+    public String editEquipment(@Valid EquipmentRequest equipmentRequest, Errors errors) {
         if (errors.hasErrors()) return "hike";
+        facade.saveEquipment(equipmentRequest);
+        return "redirect:/hike?idHike=" + equipmentRequest.getIdHike();
+    }
+
+    @PostMapping("/addEquipment")
+    public String saveEquipment(@Valid EquipmentRequest equipmentRequest, Errors errors, Model model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("addEquipment", "add");
+            model.addAttribute("msg", "Введите данные корректно");
+            return "hike";
+        }
         facade.saveEquipment(equipmentRequest);
         return "redirect:/hike?idHike=" + equipmentRequest.getIdHike();
     }

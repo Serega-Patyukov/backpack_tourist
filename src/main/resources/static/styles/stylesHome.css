@@ -10,16 +10,27 @@
     background: chartreuse;
 }
 
-.Form_Home {
-}
-
 .Menu_Home {
     /*следующ ая строка размещает дивы друг за другом*/
     display: flex;
     /*следующая строка разносит все элементы в стороны*/
     justify-content: space-between;
+    /*следующая строка разносит элементы на одинаковые расстояния*/
+    /*justify-content: space-around;*/
     /*тут все выравнивается по горизонтали по центру*/
     align-items: center;
+
+    /*размер шрифта*/
+    /*font-size: 20px;*/
+
+    /*ограничение максимальной ширины*/
+    /*max-width: 500px;*/
+
+    /*между строчный интервал*/
+    /*line-height: 45px;*/
+
+    /*жирный шрифт*/
+    /*font-weight: normal;*/
 }
 
 .Main_Home {
@@ -31,6 +42,8 @@
     padding: 2px;
 }
 
+
+
 .ValidationError_Home {
     color: red;
 }
@@ -40,5 +53,6 @@
 }
 
 input, textarea {
-    width: 200px;
+    max-width: 250px;
+    min-width: 250px;
 }

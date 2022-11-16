@@ -1,57 +1,97 @@
-.H_LengthWeight {
-    width: 70px;
+* {
+    box-sizing: border-box;
 }
 
-.H_LengthWeight_2 {
-    width: 62px;
+.Box_Hike {
+    width: 1170px;
+    margin: 5px auto;
+    border-radius: 10px;
+    padding: 10px;
+    background: chartreuse;
 }
 
-.H_LengthName {
-    width: 150px;
+.Menu_Hike {
+    /*следующ ая строка размещает дивы друг за другом*/
+    display: flex;
+    /*следующая строка разносит все элементы в стороны*/
+    justify-content: space-between;
+    /*тут все выравнивается по горизонтали по центру*/
+    align-items: center;
 }
 
-.H_LengthName_2 {
-    width: 142px;
+.Menu_Right_Hike {
+    display: flex;
 }
 
-.H_LengthNotes {
-    width: 300px;
+.Button_Hike {
+    padding-left: 40px;
 }
 
-.H_LengthNotes_2 {
-    width: 294px;
+.ValidationError_Hike {
+    color: red;
 }
 
-.H_LengthEdit {
-    width: 150px;
-}
-
-.H_LengthDelete {
-    width: 75px;
-}
-
-.H_TableHike {
+.Table_Hike {
     border-collapse: collapse;
     border: 2px solid black;
     margin: 10px auto;
+    background: beige;
 }
 
-.H_TableHike_2 {
-    border-collapse: collapse;
+input, textarea, select {
+    max-width: 250px;
+    min-width: 250px;
 }
 
-.H_tr {
-    border: 1px solid black;
-}
-
-.H_td {
-    border: 1px solid black;
-}
-
-.H_td_text_right {
+.td_text_right_Hike {
     text-align: right;
 }
 
-.H_td_color {
-    background-color: #9ca3e3;
+.td_Group_Hike {
+    min-width: 194px;
+    max-width: 194px;
+}
+
+.td_Description_Hike {
+    min-width: 854px;
+    max-width: 854px;
+}
+
+.td_Name_Hike {
+    min-width: 160px;
+    max-width: 160px;
+}
+
+.td_Weight_Hike {
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.td_Notes_Hike {
+    min-width: 400px;
+    max-width: 400px;
+}
+
+.td_Edit_Hike {
+    width: 110px;
+}
+
+.td_Delete_Hike {
+    width: 110px;
+}
+
+.Table_Hike_2 {
+    border-collapse: collapse;
+}
+
+.tr_Hike {
+    border: 1px solid black;
+}
+
+.td_Hike {
+    border: 1px solid black;
+}
+
+.td_text_right_Hike {
+    text-align: right;
 }

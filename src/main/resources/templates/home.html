@@ -10,7 +10,9 @@
         <title>Рюкзак туриста</title>
     </head>
 
-        <div th:if="${!reg.equals('reg') && !reg.equals('Логин занят')}" class="Menu_Home Box_Home">
+
+
+        <div class="Box_Home Menu_Home">
             <form action="http://localhost:8080/home" method="post" th:object="${userLogPasRequest}">
                 <span>Логин</span>
                 <input type="text" th:field="*{login}">
@@ -25,63 +27,66 @@
             </form>
         </div>
 
+
+
         <div class="Box_Home" th:if="${reg.equals('reg') || reg.equals('Логин занят')}">
-            <form class="Form_Home" action="/home/reg" method="post" th:object="${userRequest}">
+            <form action="http://localhost:8080/home/reg" method="post" th:object="${userRequest}">
                 <h3>Регистрация</h3>
                 <table>
                     <tr>
                         <td class="td_text_right_Home">Имя:</td>
-                        <td><input type="text" th:field="*{name}">
+                        <td>
+                            <input type="text" th:field="*{name}">
                             <span class="ValidationError_Home">*</span>
                             <span class="ValidationError_Home"
                                   th:if="${#fields.hasErrors('name')}"
-                                  th:errors="*{name}">name
-                        </span>
+                                  th:errors="*{name}">name</span>
                         </td>
                     </tr>
                     <tr>
                         <td class="td_text_right_Home">Логин:</td>
-                        <td><input type="text" th:field="*{login}">
+                        <td>
+                            <input type="text" th:field="*{login}">
                             <span class="ValidationError_Home">*</span>
                             <span class="ValidationError_Home"
                                   th:if="${#fields.hasErrors('login')}"
-                                  th:errors="*{login}">login
-                        </span>
+                                  th:errors="*{login}">login</span>
                             <span class="ValidationError_Home" th:if="${reg.equals('Логин занят')}" th:text="${reg}"></span>
                         </td>
                     </tr>
                     <tr>
                         <td class="td_text_right_Home">Пароль:</td>
-                        <td><input type="text" th:field="*{password}">
+                        <td >
+                            <input type="text" th:field="*{password}">
                             <span class="ValidationError_Home">*</span>
                             <span class="ValidationError_Home"
                                   th:if="${#fields.hasErrors('password')}"
-                                  th:errors="*{password}">password
-                        </span>
+                                  th:errors="*{password}">password</span>
                         </td>
                     </tr>
                     <tr>
                         <td class="td_text_right_Home">Номер телефона:</td>
-                        <td><input type="text" th:field="*{phoneNumber}">
+                        <td >
+                            <input type="text" th:field="*{phoneNumber}">
                             <span class="ValidationError_Home">*</span>
                             <span class="ValidationError_Home"
                                   th:if="${#fields.hasErrors('phoneNumber')}"
-                                  th:errors="*{phoneNumber}">phoneNumber
-                        </span>
+                                  th:errors="*{phoneNumber}">phoneNumber</span>
                         </td>
                     </tr>
                     <tr>
                         <td class="td_text_right_Home">Примечания:</td>
-                        <td><textarea th:field="*{notes}"></textarea></td>
+                        <td >
+                            <textarea th:field="*{notes}"></textarea>
+                        </td>
                     </tr>
                 </table>
-                <h3 class="info">Поля со * обязательны для заполнения</h3>
+                <h3 class="ValidationError_Home">Поля со * обязательны для заполнения</h3>
                 <div>
                     <button>зарегистрироваться</button>
                     <span class="ValidationError_Home" th:text="${msg}"></span>
                 </div>
             </form>
-
             <form action="http://localhost:8080/home" method="get">
                 <h3>
                     <button>отмена</button>
@@ -89,11 +94,15 @@
             </form>
         </div>
 
-        <div class="Main_Home Box_Home">
+
+
+        <div class="Box_Home Main_Home">
             <h1>РЮКЗАК ТУРИСТА</h1>
         </div>
 
-        <div class="Description_Home Box_Home">
+
+
+        <div class="Box_Home Description_Home">
             <h3>
                 <p>Тут будет описание приложения !!!</p>
             </h3>

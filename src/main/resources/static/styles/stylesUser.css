@@ -19,39 +19,62 @@
     align-items: center;
 }
 
-.MenuSmall_User {
+.Menu_Right_User {
     display: flex;
 }
 
 .Button_User {
-    padding-left: 20px;
+    padding-left: 30px;
 }
 
 .ValidationError_User {
     color: red;
 }
 
-
-
-
-
-
-
-
-.U_Table {
+.Table_User {
     border-collapse: collapse;
     border: 2px solid black;
     margin: 10px auto;
+    background: beige;
 }
 
-.U_tr {
+.td_Name_User {
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.td_Date_User {
+    min-width: 75px;
+    max-width: 75px;
+}
+
+.td_Note_User {
+    min-width: 400px;
+    max-width: 400px;
+}
+
+.td_Edit_User {
+    width: 110px;
+}
+
+.td_View_User {
+    width: 77px;
+}
+
+.td_Delete_User {
+    width: 110px;
+}
+
+.td_text_right_User {
+    text-align: right;
+}
+
+.td_tr_User {
     border: 1px solid black;
 }
 
-.U_td {
-    border: 1px solid black;
+input, textarea {
+    max-width: 250px;
+    min-width: 250px;
 }
 
-.U_LengthView {
-    width: 150px;
-}

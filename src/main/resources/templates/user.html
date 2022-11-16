@@ -11,9 +11,15 @@
   </head>
   <body>
 
-    <div th:if="${!addHike.equals('add') && login.isEmpty()}" class="Menu_User Box_User">
-        <span th:text="${userResponse.getName()}"></span>
-        <div class="MenuSmall_User">
+
+
+    <div class="Box_User Menu_User">
+        <div>
+            <span th:text="${userResponse.getName()}"></span>
+            <span> --- </span>
+            <span th:text="${userResponse.getNotes()}"></span>
+        </div>
+        <div class="Menu_Right_User">
             <form class="Button_User" action="http://localhost:8080/user" method="get">
                 <input type="hidden" name="addHike" th:value="${'add'}">
                 <button>создать поход</button>
@@ -22,7 +28,7 @@
                 <input type="hidden" name="login" th:value="${userResponse.getLogin()}">
                 <button>редактировать аккаунт</button>
             </form>
-            <form class="Button_User" action="/user/deleteUser" method="post">
+            <form class="Button_User" action="http://localhost:8080/user/deleteUser" method="post">
                 <input type="hidden" name="login" th:value="${userResponse.getLogin()}">
                 <button>удалить аккаунт</button>
             </form>
@@ -32,31 +38,51 @@
         </div>
     </div>
 
+
+
     <div th:if="${addHike.equals('add')}" class="Box_User">
         <h3>Создание похода</h3>
         <form action="http://localhost:8080/user/addHike" method="post" th:object="${hikeRequest}">
-            <div>
-                <span>Название: </span>
-                <input type="text" th:field="*{name}">
-                <span class="ValidationError_User">*</span>
-                <span class="ValidationError_User"
-                      th:if="${#fields.hasErrors('name')}"
-                      th:errors="*{name}">name
-              </span>
-            </div>
-            <div>
-                <span>Начало: </span>
-                <input type="date" th:field="*{dateStart}">
-            </div>
-            <div>
-                <span>Конец: </span>
-                <input type="date" th:field="*{dateFinish}">
-            </div>
-            <div>
-                <span>Примечания: </span>
-                <textarea th:field="*{notes}"></textarea>
-            </div>
-            <h3>Поля со * обязательны для заполнения</h3>
+            <table>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Название: </span>
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{name}">
+                        <span class="ValidationError_User">*</span>
+                        <span class="ValidationError_User"
+                              th:if="${#fields.hasErrors('name')}"
+                              th:errors="*{name}">name
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Начало: </span>
+                    </td>
+                    <td>
+                        <input type="date" th:field="*{dateStart}">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Конец: </span>
+                    </td>
+                    <td>
+                        <input type="date" th:field="*{dateFinish}">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Примечания: </span>
+                    </td>
+                    <td>
+                        <textarea th:field="*{notes}"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <h3 class="ValidationError_User">Поля со * обязательны для заполнения</h3>
             <div>
                 <button>создать</button>
                 <span class="ValidationError_User" th:text="${msg}"></span>
@@ -69,41 +95,61 @@
         </form>
     </div>
 
+
+
     <div th:if="${login.length() > 0}" th:class="Box_User">
-        <h3>Редактирование туриста</h3>
+        <h3>Редактирование аккаунта</h3>
         <form action="http://localhost:8080/user/editUser" method="post" th:object="${userRequest}">
-            <div>
-                <span>Имя: </span>
-                <input type="text" th:field="*{name}">
-                <span class="ValidationError_User">*</span>
-                <span class="ValidationError_User"
-                      th:if="${#fields.hasErrors('name')}"
-                      th:errors="*{name}">name
-                </span>
-            </div>
-            <div>
-                <span>Пароль: </span>
-                <input type="text" th:field="*{password}">
-                <span class="ValidationError_User">*</span>
-                <span class="ValidationError_User"
-                      th:if="${#fields.hasErrors('password')}"
-                      th:errors="*{password}">password
-                </span>
-            </div>
-            <div>
-                <span>Номер телефона: </span>
-                <input type="text" th:field="*{phoneNumber}">
-                <span class="ValidationError_User">*</span>
-                <span class="ValidationError_User"
-                      th:if="${#fields.hasErrors('phoneNumber')}"
-                      th:errors="*{phoneNumber}">phoneNumber
-                </span>
-            </div>
-            <div>
-                <span>Примечания: </span>
-                <textarea th:field="*{notes}"></textarea>
-            </div>
-            <h3 class="info">Поля со * обязательны для заполнения</h3>
+            <table>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Имя: </span>
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{name}">
+                        <span class="ValidationError_User">*</span>
+                        <span class="ValidationError_User"
+                              th:if="${#fields.hasErrors('name')}"
+                              th:errors="*{name}">name
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Пароль: </span>
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{password}">
+                        <span class="ValidationError_User">*</span>
+                        <span class="ValidationError_User"
+                              th:if="${#fields.hasErrors('password')}"
+                              th:errors="*{password}">password
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Номер телефона: </span>
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{phoneNumber}">
+                        <span class="ValidationError_User">*</span>
+                        <span class="ValidationError_User"
+                              th:if="${#fields.hasErrors('phoneNumber')}"
+                              th:errors="*{phoneNumber}">phoneNumber
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Примечания: </span>
+                    </td>
+                    <td>
+                        <textarea th:field="*{notes}"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <h3 class="ValidationError_User">Поля со * обязательны для заполнения</h3>
             <input type="hidden" name="login" th:value="${userRequest.getLogin()}">
             <div>
                 <button>сохранить изменения</button>
@@ -117,41 +163,108 @@
         </form>
     </div>
 
-    <table class="U_Table" th:object="${userResponse}">
-        <thead>
-            <tr>
-                <th><h3>Список походов</h3></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="U_tr">
-                <td class="U_td"><h4>Название</h4></td>
-                <td class="U_td"><h4>Начало</h4></td>
-                <td class="U_td"><h4>Конец</h4></td>
-                <td class="U_td"><h4>Примечания</h4></td>
-                <td class="U_td"><h4>Действие</h4></td>
-                <td class="U_td"><h4>Действие</h4></td>
-            </tr>
-            <tr class="U_tr" th:each="hike : *{getHikeList()}">
-                <td class="U_td" th:text="${hike.getName()}"></td>
-                <td class="U_td" th:text="${hike.getDateStart()}"></td>
-                <td class="U_td" th:text="${hike.getDateFinish()}"></td>
-                <td class="U_td" th:text="${hike.getNotes()}"></td>
-                <td class="U_td U_LengthView" >
-                    <form method="get" action="/hike">
-                        <input name="idHike" type="hidden" th:value="${hike.getId()}">
-                        <button>просмотр</button>
-                        </div>
-                    </form>
-                </td>
-                <td class="U_td">
-                    <form action="/user" method="post">
-                        <input name="idHike" type="hidden" th:value="${hike.getId()}">
-                        <button>удалить</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+
+
+    <div th:if="${editHike != 0}" class="Box_User">
+        <h3>Редактирование похода</h3>
+        <form action="http://localhost:8080/user/editHike" method="post" th:object="${hikeRequest}">
+            <table>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Название: </span>
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{name}">
+                        <span class="ValidationError_User">*</span>
+                        <span class="ValidationError_User"
+                              th:if="${#fields.hasErrors('name')}"
+                              th:errors="*{name}">name
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Начало: </span>
+                    </td>
+                    <td>
+                        <input type="date" th:field="*{dateStart}">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Конец: </span>
+                    </td>
+                    <td>
+                        <input type="date" th:field="*{dateFinish}">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text_right_User">
+                        <span>Примечания: </span>
+                    </td>
+                    <td>
+                        <textarea th:field="*{notes}"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <h3 class="ValidationError_User">Поля со * обязательны для заполнения</h3>
+            <input type="hidden" name="idHike" th:value="${hikeRequest.getId()}">
+            <div>
+                <button>сохранить изменения</button>
+                <span class="ValidationError_User" th:text="${msg}"></span>
+            </div>
+        </form>
+        <form action="http://localhost:8080/user" method="get">
+            <h3>
+                <button>отмена</button>
+            </h3>
+        </form>
+    </div>
+
+
+
+    <div class="Box_User">
+        <table class="Table_User" th:object="${userResponse}">
+            <caption><h3>Список походов</h3></caption>
+            <thead>
+                <tr class="td_tr_User">
+                    <td class="td_Name_User td_tr_User"><h4>Название</h4></td>
+                    <td class="td_Date_User td_tr_User"><h4>Начало</h4></td>
+                    <td class="td_Date_User td_tr_User"><h4>Конец</h4></td>
+                    <td class="td_Note_User td_tr_User"><h4>Примечания</h4></td>
+                    <td class="td_tr_User td_Edit_User"><h4>Действие</h4></td>
+                    <td class="td_tr_User td_View_User"><h4>Действие</h4></td>
+                    <td class="td_tr_User td_Delete_User td_text_right_User"><h4>Действие</h4></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="td_tr_User" th:each="hike : *{getHikeList()}">
+                    <td class="td_tr_User" th:text="${hike.getName()}"></td>
+                    <td class="td_tr_User" th:text="${hike.getDateStart()}"></td>
+                    <td class="td_tr_User" th:text="${hike.getDateFinish()}"></td>
+                    <td class="td_tr_User" th:text="${hike.getNotes()}"></td>
+                    <td class="td_tr_User td_Edit_User">
+                        <form action="http://localhost:8080/user" method="get">
+                            <input type="hidden" name="editHike" th:value="${hike.getId()}">
+                            <input type="hidden" name="idHike" th:value="${hike.getId()}">
+                            <button>редактировать</button>
+                        </form>
+                    </td>
+                    <td class="td_tr_User td_View_User">
+                        <form method="get" action="http://localhost:8080/hike">
+                            <input name="idHike" type="hidden" th:value="${hike.getId()}">
+                            <button>просмотр</button>
+                        </form>
+                    </td>
+                    <td class="td_tr_User td_Delete_User td_text_right_User">
+                        <form action="http://localhost:8080/user" method="post">
+                            <input name="idHike" type="hidden" th:value="${hike.getId()}">
+                            <button>удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
   </body>
 </html>
