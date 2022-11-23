@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import ru.patyukov.backpack_tourist.facade.Facade;
-import ru.patyukov.backpack_tourist.security.SecurityContext;
 import ru.patyukov.backpack_tourist.web.request.HikeRequest;
 import ru.patyukov.backpack_tourist.web.request.UserRequest;
 
@@ -18,7 +17,6 @@ import javax.validation.Valid;
 public class UserController {
 
     private final Facade facade;
-    private final SecurityContext securityContext;
 
     @GetMapping
     public String viewUser() {
@@ -46,13 +44,6 @@ public class UserController {
             model.addAttribute("hikeRequest", facade.getHikeRequest(idHike));
         }
         model.addAttribute("editHike", editHike);
-    }
-
-    @GetMapping("/exit")
-    public String userExit() {
-        securityContext.setLoginUser("");
-        securityContext.setPassword("");
-        return "redirect:/home";
     }
 
     @PostMapping

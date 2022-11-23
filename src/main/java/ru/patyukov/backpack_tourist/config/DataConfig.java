@@ -25,16 +25,15 @@ public class DataConfig {
                 user.setName("admin");
                 user.setNotes("admin");
                 user.setLogin("admin");
-                user.setAuthority("root");
 
                 List<Authority> authorities = new ArrayList<>();
                 Authority authority = new Authority();
                 authority.setUser(user);
-                authority.setName("ADMIN");
+                authority.setName("ROLE_ADMIN");
                 authorities.add(authority);
 
                 user.setAuthorities(authorities);
-                user.setPassword("$2a$12$t7b04Sdu.Ow9Ljw8YMwXw.6zw2oHsHQXYZS5MGhkIysGlZCsobsCW");
+                user.setPassword("12345678");
                 user.setPhoneNumber("89009553902");
 
                 userRepository.save(user);

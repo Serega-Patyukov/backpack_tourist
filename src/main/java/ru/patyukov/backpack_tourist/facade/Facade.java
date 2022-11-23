@@ -27,8 +27,4 @@ public interface Facade {
     EquipmentResponse saveEquipment(EquipmentRequest equipmentRequest);
     EquipmentRequest getEquipmentRequest(Long idEquipment);
     void deleteEquipment(Long idEquipment);
-
-
-
-    void login();
 }

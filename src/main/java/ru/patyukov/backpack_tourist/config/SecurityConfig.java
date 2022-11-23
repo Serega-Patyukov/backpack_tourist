@@ -18,19 +18,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin().defaultSuccessUrl("/user", true);
 
+        http.logout().logoutSuccessUrl("/home");
+
         http.authorizeRequests()
                 .mvcMatchers(HttpMethod.GET, "/styles/**").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/home").permitAll()
                 .mvcMatchers(HttpMethod.POST, "/home").permitAll()
                 .mvcMatchers(HttpMethod.POST, "/home/reg").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().hasAnyRole("ADMIN", "USER");
 
         http.csrf().disable();
     }

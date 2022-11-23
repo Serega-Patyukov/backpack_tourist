@@ -32,9 +32,7 @@
                 <input type="hidden" name="login" th:value="${userResponse.getLogin()}">
                 <button>удалить аккаунт</button>
             </form>
-            <form class="Button_User" action="http://localhost:8080/user/exit" method="get">
-                <button>выход</button>
-            </form>
+            <a class="Button_User" href="/logout"><button>выход</button></a>
         </div>
     </div>
 

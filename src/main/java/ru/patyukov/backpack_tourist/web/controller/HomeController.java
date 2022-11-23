@@ -7,8 +7,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import ru.patyukov.backpack_tourist.facade.Facade;
-import ru.patyukov.backpack_tourist.security.SecurityContext;
-import ru.patyukov.backpack_tourist.web.request.UserLogPasRequest;
 import ru.patyukov.backpack_tourist.web.request.UserRequest;
 
 import javax.validation.Valid;
@@ -16,11 +14,10 @@ import javax.validation.Valid;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/home")
-@SessionAttributes({"userLogPasRequest", "userRequest"})
+@SessionAttributes("userRequest")
 public class HomeController {
 
     private final Facade facade;
-    private final SecurityContext securityContext;
 
     @GetMapping
     public String viewHome() {
@@ -47,25 +44,6 @@ public class HomeController {
         }
 
         return new UserRequest();
-    }
-
-    @ModelAttribute
-    public UserLogPasRequest addModelUserLogPasRequest() {
-        return new UserLogPasRequest();
-    }
-
-    @PostMapping
-    public String login(@Valid UserLogPasRequest userLogPasRequest,
-                        Errors errors, Model model, SessionStatus sessionStatus) {
-        if (errors.hasErrors()) {
-            model.addAttribute("msg", "Введите учетные данные корректно");
-            return "home";
-        }
-        securityContext.setLoginUser(userLogPasRequest.getLogin());
-        securityContext.setPassword(userLogPasRequest.getPassword());
-        facade.login();
-        sessionStatus.setComplete();
-        return "redirect:/user";
     }
 
     @PostMapping("/reg")

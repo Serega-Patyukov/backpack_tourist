@@ -6,13 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.patyukov.backpack_tourist.exception.BadRequestException;
-import ru.patyukov.backpack_tourist.security.SecurityContext;
 
 @ControllerAdvice
 @AllArgsConstructor
 public class ControllerExceptionHandler {
-
-    private final SecurityContext securityContext;
 
     @ExceptionHandler(BadRequestException.class)
     public String handleBadRequestException(@NonNull final BadRequestException exc, Model model) {
@@ -20,14 +17,10 @@ public class ControllerExceptionHandler {
         String[] msgSplit = msg.split("\\s");
 
         if ("login".equals(msgSplit[0])) {
-            securityContext.setLoginUser("");
-            securityContext.setPassword("");
             model.addAttribute("msg", "Логин или пароль указан не верно");
         }
 
         if ("addUser".equals(msgSplit[0])) {
-            securityContext.setLoginUser("");
-            securityContext.setPassword("");
             model.addAttribute("reg", "Логин занят");
         }
 

@@ -15,6 +15,6 @@ public class Authority {
     private String name;
 
     @JoinColumn(name = "user_login", nullable = false)
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 }

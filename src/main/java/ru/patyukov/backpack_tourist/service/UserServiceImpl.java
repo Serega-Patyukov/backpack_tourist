@@ -8,7 +8,6 @@ import ru.patyukov.backpack_tourist.entity.User;
 import ru.patyukov.backpack_tourist.exception.BadRequestException;
 import ru.patyukov.backpack_tourist.mapper.UserMapper;
 import ru.patyukov.backpack_tourist.repository.UserRepository;
-import ru.patyukov.backpack_tourist.security.SecurityContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final SecurityContext securityContext;
 
     @Override
     public UserDto saveUser(UserDto userDto) {
@@ -32,7 +30,7 @@ public class UserServiceImpl implements UserService {
         List<Authority> authorities = new ArrayList<>();
         Authority authority = new Authority();
         authority.setUser(user);
-        authority.setName("USER");
+        authority.setName("ROLE_USER");
         authorities.add(authority);
 
         user.setAuthorities(authorities);
@@ -44,7 +42,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserDto userDto) {
         User user = userRepository.save(userMapper.userDtoToUser(userDto));
-        securityContext.setPassword(user.getPassword());
         return userMapper.userToUserDto(user);
     }
 
@@ -63,7 +60,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(String login) {
         userRepository.deleteById(login);
-        securityContext.setLoginUser("");
-        securityContext.setPassword("");
     }
 }
