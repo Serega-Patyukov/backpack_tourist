@@ -9,25 +9,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        var userDetailsService = new InMemoryUserDetailsManager();
-
-        UserDetails user = User.withUsername("admin")
-                .password("$2a$12$t7b04Sdu.Ow9Ljw8YMwXw.6zw2oHsHQXYZS5MGhkIysGlZCsobsCW")
-                .roles("ADMIN")
-                .build();
-
-        userDetailsService.createUser(user);
-
-        return userDetailsService;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -36,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin();
+        http.formLogin().defaultSuccessUrl("/user", true);
 
         http.authorizeRequests()
                 .mvcMatchers(HttpMethod.GET, "/styles/**").permitAll()

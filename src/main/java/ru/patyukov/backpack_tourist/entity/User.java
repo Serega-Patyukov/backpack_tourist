@@ -21,8 +21,15 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    //todo следующее поле потом нужно будет удалить
     @Column(nullable = false)
     private String authority;
+
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @Column(nullable = false)
+    private List<Authority> authorities;
 
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "user",
