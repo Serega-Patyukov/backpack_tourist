@@ -33,7 +33,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.POST, "/home").permitAll()
                 .mvcMatchers(HttpMethod.POST, "/home/reg").permitAll()
                 .anyRequest().hasAnyRole("ADMIN", "USER");
-
-        http.csrf().disable();
     }
 }

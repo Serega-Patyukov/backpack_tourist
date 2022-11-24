@@ -16,10 +16,6 @@ public class ControllerExceptionHandler {
         String msg = exc.getMessage();
         String[] msgSplit = msg.split("\\s");
 
-        if ("login".equals(msgSplit[0])) {
-            model.addAttribute("msg", "Логин или пароль указан не верно");
-        }
-
         if ("addUser".equals(msgSplit[0])) {
             model.addAttribute("reg", "Логин занят");
         }

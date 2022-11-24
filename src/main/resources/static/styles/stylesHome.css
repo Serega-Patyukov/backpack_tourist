@@ -14,7 +14,7 @@
     /*следующ ая строка размещает дивы друг за другом*/
     display: flex;
     /*следующая строка разносит все элементы в стороны*/
-    justify-content: space-between;
+    justify-content: right;
     /*следующая строка разносит элементы на одинаковые расстояния*/
     /*justify-content: space-around;*/
     /*тут все выравнивается по горизонтали по центру*/
@@ -31,6 +31,10 @@
 
     /*жирный шрифт*/
     /*font-weight: normal;*/
+}
+
+.Button_Home {
+    padding-left: 30px;
 }
 
 .Main_Home {

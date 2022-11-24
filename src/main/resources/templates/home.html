@@ -14,11 +14,11 @@
 
         <div class="Box_Home Menu_Home">
             <form action="http://localhost:8080/user" method="get">
-                <span><button>вход</button></span>
+                <span class="Button_Home"><button>вход</button></span>
             </form>
             <form action="http://localhost:8080/home" method="get">
                 <input type="hidden" name="reg" value="reg">
-                <span><button>регистрация</button></span>
+                <span class="Button_Home"><button>регистрация</button></span>
             </form>
         </div>
 
@@ -78,6 +78,7 @@
                 </table>
                 <h3 class="ValidationError_Home">Поля со * обязательны для заполнения</h3>
                 <div>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <button>зарегистрироваться</button>
                     <span class="ValidationError_Home" th:text="${msg}"></span>
                 </div>

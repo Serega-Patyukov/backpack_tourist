@@ -92,6 +92,7 @@
               <h3 class="ValidationError_Hike">Поля со * обязательны для заполнения</h3>
               <input type="hidden" name="idHike" th:value="${equipmentRequest.getIdHike()}">
               <div>
+                  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                   <button>добавить</button>
                   <span class="ValidationError_Hike" th:text="${msg}"></span>
               </div>
@@ -166,6 +167,7 @@
             <div>
                 <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
                 <input type="hidden" name="editEquipment"  th:value="${editEquipment}">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <button>сохранить</button>
                 <span class="ValidationError_Hike" th:text="${msg}"></span>
             </div>
@@ -230,6 +232,7 @@
                                     <form action="/hike" method="post">
                                         <input type="hidden" name="idHike" th:value="${hikeResponse.getId()}">
                                         <input type="hidden" name="idEquipment"  th:value="${equipment.getId()}">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                         <button>удалить</button>
                                     </form>
                                 </td>
