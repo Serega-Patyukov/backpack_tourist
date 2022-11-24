@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -31,7 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.GET, "/styles/**").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/home").permitAll()
                 .mvcMatchers(HttpMethod.POST, "/home").permitAll()
-                .mvcMatchers(HttpMethod.POST, "/home/reg").permitAll()
                 .anyRequest().hasAnyRole("ADMIN", "USER");
     }
 }

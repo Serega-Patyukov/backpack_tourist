@@ -25,7 +25,7 @@ public class User {
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     @Column(nullable = false)
-    private List<Authority> authorities;
+    private List<Role> authorities;
 
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "user",

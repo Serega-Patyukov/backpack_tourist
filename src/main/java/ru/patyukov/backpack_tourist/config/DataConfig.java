@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.patyukov.backpack_tourist.entity.Authority;
+import ru.patyukov.backpack_tourist.entity.Role;
 import ru.patyukov.backpack_tourist.entity.User;
 import ru.patyukov.backpack_tourist.repository.UserRepository;
 
@@ -26,14 +26,15 @@ public class DataConfig {
                 user.setNotes("admin");
                 user.setLogin("admin");
 
-                List<Authority> authorities = new ArrayList<>();
-                Authority authority = new Authority();
-                authority.setUser(user);
-                authority.setName("ROLE_ADMIN");
-                authorities.add(authority);
+                Role role = new Role();
+                role.setUser(user);
+                role.setName("ROLE_ADMIN");
 
-                user.setAuthorities(authorities);
-                user.setPassword("12345678");
+                List<Role> roles = new ArrayList<>();
+                roles.add(role);
+
+                user.setAuthorities(roles);
+                user.setPassword("$2a$10$WGdlDMaJLTtxQERD5h3XsOlEEvoTKPysaVt/NfthUNuqc5qMlkxO6");
                 user.setPhoneNumber("89009553902");
 
                 userRepository.save(user);

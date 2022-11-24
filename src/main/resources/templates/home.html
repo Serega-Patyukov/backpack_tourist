@@ -25,7 +25,7 @@
 
 
         <div class="Box_Home" th:if="${reg.equals('reg') || reg.equals('Логин занят')}">
-            <form action="http://localhost:8080/home/reg" method="post" th:object="${userRequest}">
+            <form action="http://localhost:8080/home" method="post" th:object="${userRequest}">
                 <h3>Регистрация</h3>
                 <table>
                     <tr>
@@ -51,8 +51,8 @@
                     </tr>
                     <tr>
                         <td class="td_text_right_Home">Пароль:</td>
-                        <td >
-                            <input type="text" th:field="*{password}">
+                        <td>
+                            <input type="password" th:field="*{password}">
                             <span class="ValidationError_Home">*</span>
                             <span class="ValidationError_Home"
                                   th:if="${#fields.hasErrors('password')}"

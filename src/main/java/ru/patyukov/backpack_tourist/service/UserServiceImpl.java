@@ -1,9 +1,10 @@
 package ru.patyukov.backpack_tourist.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.patyukov.backpack_tourist.dto.UserDto;
-import ru.patyukov.backpack_tourist.entity.Authority;
+import ru.patyukov.backpack_tourist.entity.Role;
 import ru.patyukov.backpack_tourist.entity.User;
 import ru.patyukov.backpack_tourist.exception.BadRequestException;
 import ru.patyukov.backpack_tourist.mapper.UserMapper;
@@ -18,6 +19,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDto saveUser(UserDto userDto) {
@@ -27,13 +29,16 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.userDtoToUser(userDto);
 
-        List<Authority> authorities = new ArrayList<>();
-        Authority authority = new Authority();
-        authority.setUser(user);
-        authority.setName("ROLE_USER");
-        authorities.add(authority);
+        Role role = new Role();
+        role.setUser(user);
+        role.setName("ROLE_USER");
 
-        user.setAuthorities(authorities);
+        List<Role> roles = new ArrayList<>();
+        roles.add(role);
+
+        user.setAuthorities(roles);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         user = userRepository.save(user);
         return userMapper.userToUserDto(user);

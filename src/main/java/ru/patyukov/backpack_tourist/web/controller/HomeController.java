@@ -25,19 +25,18 @@ public class HomeController {
     }
 
     @ModelAttribute
-    public UserRequest addModelUserRequest(@RequestParam(required = false, defaultValue = "") String msg,
-                                           @RequestParam(required = false, defaultValue = "") String reg,
-                                Model model) {
+    public UserRequest addModelUserRequest(
+            @RequestParam(required = false, defaultValue = "") String msg,
+            @RequestParam(required = false, defaultValue = "") String reg,
+            Model model) {
 
-        if (!msg.isEmpty()  &&
-                !(msg.equals("Логин или пароль указан не верно") || msg.equals("Введите учетные данные корректно"))) {
+        if (!msg.isEmpty()  && !msg.equals("Введите учетные данные корректно")) {
             model.addAttribute("msg", "");
         } else {
             model.addAttribute("msg", msg);
         }
 
-        if (!reg.isEmpty() &&
-                !(reg.equals("reg") || reg.equals("Логин занят"))) {
+        if (!reg.isEmpty() && !(reg.equals("reg") || reg.equals("Логин занят"))) {
             model.addAttribute("reg", "");
         } else {
             model.addAttribute("reg", reg);
@@ -46,13 +45,19 @@ public class HomeController {
         return new UserRequest();
     }
 
-    @PostMapping("/reg")
-    public String saveUser(@Valid UserRequest userRequest, Errors errors, SessionStatus sessionStatus, Model model) {
+    @PostMapping
+    public String saveUser(
+            @Valid UserRequest userRequest,
+            Errors errors,
+            SessionStatus sessionStatus,
+            Model model) {
+
         if (errors.hasErrors()) {
             model.addAttribute("msg", "Введите учетные данные корректно");
             model.addAttribute("reg", "reg");
             return "home";
         }
+
         facade.saveUser(userRequest);
         sessionStatus.setComplete();
         return "redirect:/home";
