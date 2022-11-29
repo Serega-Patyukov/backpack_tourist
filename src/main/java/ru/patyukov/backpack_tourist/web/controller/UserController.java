@@ -25,71 +25,68 @@ public class UserController {
 
     @ModelAttribute
     public void addModel(@RequestParam(required = false, defaultValue = "") String msg,
-                         @RequestParam(required = false, defaultValue = "") String addHike,
-                         @RequestParam(required = false, defaultValue = "") String login,
                          @RequestParam(required = false, defaultValue = "0") Long idHike,
-                         @RequestParam(required = false, defaultValue = "0") Long editHike,
                          Model model) {
-        model.addAttribute("msg", msg);
-        model.addAttribute("addHike", addHike);
-        model.addAttribute("userResponse", facade.getUserResponse());
-        model.addAttribute("hikeRequest", new HikeRequest());
-        if (!login.isEmpty()) {
-            model.addAttribute("userRequest", facade.getUserRequest(login));
-            model.addAttribute("login", login);
+
+        model.addAttribute("userResponse", facade.getUserResponse());   // модель пользователя
+        if ("editUser".equals(msg)) model.addAttribute("userRequest", facade.getUserRequest());   // модель для редактирования пользователя
+        if ("addHike".equals(msg)) model.addAttribute("hikeRequest", new HikeRequest());   // модель для редактирования похода
+        if (idHike > 0) model.addAttribute("hikeRequest", facade.getHikeRequest(idHike));   // модель похода
+
+
+        if (!msg.isEmpty() && !(
+                "editUser".equals(msg)
+                || "Введите учетные данные корректно".equals(msg)
+                || "addHike".equals(msg)
+                || "Введите данные о походе корректно".equals(msg)
+                || "editHike".equals(msg)
+                || "Измените данные о походе корректно".equals(msg))) {
+            model.addAttribute("msg", "");
         } else {
-            model.addAttribute("login", login);
+            model.addAttribute("msg", msg);
         }
-        if (idHike > 0) {
-            model.addAttribute("hikeRequest", facade.getHikeRequest(idHike));
-        }
-        model.addAttribute("editHike", editHike);
-    }
-
-    @PostMapping
-    public String deleteHike(Long idHike) {
-
-        //todo проверить наличие этого похода у туриста
-
-        facade.deleteHike(idHike);
-        return "redirect:/user";
     }
 
     @PostMapping("/deleteUser")
-    public String deleteUser(String login) {
-        facade.deleteUser(login);
+    public String deleteUser() {
+        facade.deleteUser();
         return "redirect:/home";
-    }
-
-    @PostMapping("/addHike")
-    public String saveHike(@Valid HikeRequest hikeRequest, Errors errors, Model model) {
-        if (errors.hasErrors()) {
-            model.addAttribute("msg", "Введите данные корректно");
-            model.addAttribute("addHike", "add");
-            return "user";
-        }
-        facade.saveHike(hikeRequest);
-        return "redirect:/user";
     }
 
     @PostMapping("/editUser")
     public String updateUser(@Valid UserRequest userRequest, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute("msg", "Введите учетные данные корректно");
-            model.addAttribute("login", userRequest.getLogin());
+            model.addAttribute("msg", "Введите данные о походе корректно");
             return "user";
         }
         facade.updateUser(userRequest);
         return "redirect:/user";
     }
 
-    @PostMapping("/editHike")
-    public String editHike(@Valid HikeRequest hikeRequest, Errors errors, Model model) {
+    @PostMapping("/addHike")
+    public String saveHike(@Valid HikeRequest hikeRequest, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute("editHike", hikeRequest.getId());
             model.addAttribute("msg", "Введите данные корректно");
             return "user";
         }
+        facade.saveHike(hikeRequest);
+        return "redirect:/user";
+    }
+
+    @PostMapping("/deleteHike")
+    public String deleteHike(Long idHike) {
+        facade.deleteHike(idHike);
+        return "redirect:/user";
+    }
+
+    @PostMapping("/editHike")
+    public String editHike(@Valid HikeRequest hikeRequest, Errors errors, Model model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("idHike", hikeRequest.getId());
+            model.addAttribute("msg", "Измените данные о походе корректно");
+            return "user";
+        }
+
         facade.saveHike(hikeRequest);
         return "redirect:/user";
     }

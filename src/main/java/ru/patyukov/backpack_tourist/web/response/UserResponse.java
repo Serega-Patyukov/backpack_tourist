@@ -7,7 +7,6 @@ import java.util.List;
 
 @Data
 public class UserResponse {
-    private String login;
     private String name;
     private List<HikeResponse> hikeList = new ArrayList<>();
     private String phoneNumber;

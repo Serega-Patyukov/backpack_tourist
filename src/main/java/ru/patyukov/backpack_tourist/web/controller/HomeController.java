@@ -27,19 +27,15 @@ public class HomeController {
     @ModelAttribute
     public UserRequest addModelUserRequest(
             @RequestParam(required = false, defaultValue = "") String msg,
-            @RequestParam(required = false, defaultValue = "") String reg,
             Model model) {
 
-        if (!msg.isEmpty()  && !msg.equals("Введите учетные данные корректно")) {
+        if (!msg.isEmpty() && !(
+                msg.equals("Введите учетные данные корректно")
+                || msg.equals("Логин занят")
+                || msg.equals("reg"))) {
             model.addAttribute("msg", "");
         } else {
             model.addAttribute("msg", msg);
-        }
-
-        if (!reg.isEmpty() && !(reg.equals("reg") || reg.equals("Логин занят"))) {
-            model.addAttribute("reg", "");
-        } else {
-            model.addAttribute("reg", reg);
         }
 
         return new UserRequest();
@@ -54,7 +50,6 @@ public class HomeController {
 
         if (errors.hasErrors()) {
             model.addAttribute("msg", "Введите учетные данные корректно");
-            model.addAttribute("reg", "reg");
             return "home";
         }
 

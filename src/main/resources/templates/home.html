@@ -17,14 +17,14 @@
                 <span class="Button_Home"><button>вход</button></span>
             </form>
             <form action="http://localhost:8080/home" method="get">
-                <input type="hidden" name="reg" value="reg">
+                <input type="hidden" name="msg" value="reg">
                 <span class="Button_Home"><button>регистрация</button></span>
             </form>
         </div>
 
 
 
-        <div class="Box_Home" th:if="${reg.equals('reg') || reg.equals('Логин занят')}">
+        <div class="Box_Home" th:if="${!msg.isEmpty()}">
             <form action="http://localhost:8080/home" method="post" th:object="${userRequest}">
                 <h3>Регистрация</h3>
                 <table>
@@ -46,7 +46,7 @@
                             <span class="ValidationError_Home"
                                   th:if="${#fields.hasErrors('login')}"
                                   th:errors="*{login}">login</span>
-                            <span class="ValidationError_Home" th:if="${reg.equals('Логин занят')}" th:text="${reg}"></span>
+                            <span class="ValidationError_Home" th:if="${msg.equals('Логин занят')}" th:text="${msg}"></span>
                         </td>
                     </tr>
                     <tr>
@@ -80,14 +80,14 @@
                 <div>
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <button>зарегистрироваться</button>
-                    <span class="ValidationError_Home" th:text="${msg}"></span>
+                    <span class="ValidationError_Home" th:if="${msg.equals('Введите учетные данные корректно')}" th:text="${msg}"></span>
                 </div>
             </form>
-            <form action="http://localhost:8080/home" method="get">
+            <a href="http://localhost:8080/home">
                 <h3>
                     <button>отмена</button>
                 </h3>
-            </form>
+            </a>
         </div>
 
 

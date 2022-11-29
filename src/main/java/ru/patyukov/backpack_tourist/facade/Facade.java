@@ -12,8 +12,8 @@ public interface Facade {
     UserResponse saveUser(UserRequest UserRequest);
     UserResponse updateUser(UserRequest userRequest);
     UserResponse getUserResponse();
-    UserRequest getUserRequest(String login);
-    void deleteUser(String login);
+    UserRequest getUserRequest();
+    void deleteUser();
 
 
 

@@ -50,28 +50,25 @@ public class FacadeImpl implements Facade {
     @Override
     public UserResponse getUserResponse() {
 
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        String login = securityContext.getAuthentication().getName();
-
-        List<HikeDto> hikeDtoList = hikeService.findByUserLogin(login);
+        List<HikeDto> hikeDtoList = hikeService.findByUserLogin();
         List<HikeResponse> hikeResponseList = hikeDtoList.stream()
                 .map(hikeDto -> hikeMapper.hikeDtoToHikeResponse(hikeDto))
                 .collect(Collectors.toList());
 
-        UserDto userDto = userService.getUser(login);
+        UserDto userDto = userService.getUser();
         UserResponse userResponse = userMapper.userDtoToUserResponse(userDto);
         userResponse.setHikeList(hikeResponseList);
 
         return userResponse;
     }
     @Override
-    public UserRequest getUserRequest(String login) {
-        UserDto userDto = userService.getUser(login);
+    public UserRequest getUserRequest() {
+        UserDto userDto = userService.getUser();
         return userMapper.userDtoToUserRequest(userDto);
     }
     @Override
-    public void deleteUser(String login) {
-        userService.deleteUser(login);
+    public void deleteUser() {
+        userService.deleteUser();
     }
 
 

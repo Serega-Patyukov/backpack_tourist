@@ -17,12 +17,11 @@ public class ControllerExceptionHandler {
         String[] msgSplit = msg.split("\\s");
 
         if ("addUser".equals(msgSplit[0])) {
-            model.addAttribute("reg", "Логин занят");
+            model.addAttribute("msg", "Логин занят");
         }
 
-        if ("user".equals(msgSplit[0])) {
-            model.addAttribute("msg", "Поход не найден");
-        }
+        if ("404".equals(msgSplit[0])) return "404";
+        if ("403".equals(msgSplit[0])) return "403";
 
         return msgSplit[1];
     }

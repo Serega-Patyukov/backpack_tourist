@@ -57,8 +57,11 @@ public class HikeController {
     }
 
     @PostMapping("/editEquipment")
-    public String editEquipment(@Valid EquipmentRequest equipmentRequest, Errors errors) {
-        if (errors.hasErrors()) return "hike";
+    public String editEquipment(@Valid EquipmentRequest equipmentRequest, Errors errors, Model model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("msg", "Введите данные корректно");
+            return "hike";
+        }
         facade.saveEquipment(equipmentRequest);
         return "redirect:/hike?idHike=" + equipmentRequest.getIdHike();
     }

@@ -1,6 +1,8 @@
 package ru.patyukov.backpack_tourist.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.patyukov.backpack_tourist.dto.HikeDto;
 import ru.patyukov.backpack_tourist.entity.Hike;
@@ -32,15 +34,27 @@ public class HikeServiceImpl implements HikeService {
 
     @Override
     public HikeDto getHike(Long idHike) {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String login = securityContext.getAuthentication().getName();
+
         Hike hike = hikeRepository.findById(idHike)
-                .orElseThrow(() -> new BadRequestException("user redirect:/user"));
+                .orElseThrow(() -> new BadRequestException("404"));
+
+        if (!login.equals(hike.getUser().getLogin())) {
+            throw new BadRequestException("403");
+        }
+
         HikeDto hikeDto = hikeMapper.hikeToHikeDto(hike);
         hikeDto.setUserLogin(hike.getUser().getLogin());
+
         return hikeDto;
     }
 
     @Override
-    public List<HikeDto> findByUserLogin(String login) {
+    public List<HikeDto> findByUserLogin() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String login = securityContext.getAuthentication().getName();
+
         return hikeRepository.findByUserLogin(login).stream()
                 .map(hike -> hikeMapper.hikeToHikeDto(hike))
                 .collect(Collectors.toList());

@@ -1,6 +1,8 @@
 package ru.patyukov.backpack_tourist.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.patyukov.backpack_tourist.dto.UserDto;
@@ -37,7 +39,6 @@ public class UserServiceImpl implements UserService {
         roles.add(role);
 
         user.setAuthorities(roles);
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         user = userRepository.save(user);
@@ -46,15 +47,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(UserDto userDto) {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String login = securityContext.getAuthentication().getName();
+
+        userDto.setLogin(login);
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
         User user = userRepository.save(userMapper.userDtoToUser(userDto));
         return userMapper.userToUserDto(user);
     }
 
     @Override
-    public UserDto getUser(String login) {
-        User user = userRepository.findById(login)
-                .orElseThrow(() -> new BadRequestException("login redirect:/login"));
-        return userMapper.userToUserDto(user);
+    public UserDto getUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String login = securityContext.getAuthentication().getName();
+
+        User user = userRepository.findById(login).get();
+
+        UserDto userDto = userMapper.userToUserDto(user);
+
+        return userDto;
     }
 
     @Override
@@ -63,7 +75,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String login) {
+    public void deleteUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String login = securityContext.getAuthentication().getName();
+
         userRepository.deleteById(login);
     }
 }

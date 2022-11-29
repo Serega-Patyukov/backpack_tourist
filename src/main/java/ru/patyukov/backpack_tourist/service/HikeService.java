@@ -7,7 +7,7 @@ import java.util.List;
 public interface HikeService {
     HikeDto saveHike(HikeDto hikeDto);
     HikeDto getHike(Long idHike);
-    List<HikeDto> findByUserLogin(String login);
+    List<HikeDto> findByUserLogin();
     void deleteHike(Long idHike);
 }
 
