@@ -85,14 +85,7 @@ public class FacadeImpl implements Facade {
     }
     @Override
     public HikeResponse getHikeResponse(Long idHike) {
-
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        String login = securityContext.getAuthentication().getName();
-
         HikeDto hikeDto = hikeService.getHike(idHike);
-        if (!login.equals(hikeDto.getUserLogin())) {
-            throw new BadRequestException("user redirect:/user");
-        }
 
         List<EquipmentDto> equipmentDtoList = equipmentService.findByIdHike(idHike);
 

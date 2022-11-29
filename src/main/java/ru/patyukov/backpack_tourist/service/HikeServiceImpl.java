@@ -8,6 +8,8 @@ import ru.patyukov.backpack_tourist.dto.HikeDto;
 import ru.patyukov.backpack_tourist.entity.Hike;
 import ru.patyukov.backpack_tourist.entity.User;
 import ru.patyukov.backpack_tourist.exception.BadRequestException;
+import ru.patyukov.backpack_tourist.exception.ForbiddenException;
+import ru.patyukov.backpack_tourist.exception.NotFoundException;
 import ru.patyukov.backpack_tourist.mapper.HikeMapper;
 import ru.patyukov.backpack_tourist.repository.HikeRepository;
 
@@ -38,10 +40,10 @@ public class HikeServiceImpl implements HikeService {
         String login = securityContext.getAuthentication().getName();
 
         Hike hike = hikeRepository.findById(idHike)
-                .orElseThrow(() -> new BadRequestException("404"));
+                .orElseThrow(() -> new NotFoundException("404 Not Found"));
 
         if (!login.equals(hike.getUser().getLogin())) {
-            throw new BadRequestException("403");
+            throw new ForbiddenException("403 Forbidden");
         }
 
         HikeDto hikeDto = hikeMapper.hikeToHikeDto(hike);

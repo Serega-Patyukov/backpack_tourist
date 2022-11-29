@@ -5,14 +5,17 @@ import lombok.NonNull;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ru.patyukov.backpack_tourist.exception.BadRequestException;
+import ru.patyukov.backpack_tourist.exception.ForbiddenException;
+import ru.patyukov.backpack_tourist.exception.NotFoundException;
 
 @ControllerAdvice
 @AllArgsConstructor
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
-    public String handleBadRequestException(@NonNull final BadRequestException exc, Model model) {
+    public String handlerBadRequestException(@NonNull final BadRequestException exc, Model model) {
         String msg = exc.getMessage();
         String[] msgSplit = msg.split("\\s");
 
@@ -20,9 +23,19 @@ public class ControllerExceptionHandler {
             model.addAttribute("msg", "Логин занят");
         }
 
-        if ("404".equals(msgSplit[0])) return "404";
-        if ("403".equals(msgSplit[0])) return "403";
-
         return msgSplit[1];
+    }
+
+
+    @ResponseBody
+    @ExceptionHandler(NotFoundException.class)
+    public String handlerNotFoundException(@NonNull final NotFoundException exc) {
+        return exc.getMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(ForbiddenException.class)
+    public String handlerForbiddenException(@NonNull final ForbiddenException exc) {
+        return exc.getMessage();
     }
 }
