@@ -20,19 +20,19 @@
             <span th:text="${userResponse.getNotes()}"></span>
         </div>
         <div class="Menu_Right_User">
-            <form class="Button_User" action="http://localhost:8080/user" method="get">
+            <form class="Button_User" action="/user" method="get">
                 <input type="hidden" name="msg" th:value="${'addHike'}">
                 <button>создать поход</button>
             </form>
-            <form class="Button_User" action="http://localhost:8080/user" method="get">
+            <form class="Button_User" action="/user" method="get">
                 <input type="hidden" name="msg" th:value="${'editUser'}">
                 <button>редактировать аккаунт</button>
             </form>
-            <form class="Button_User" action="http://localhost:8080/user/deleteUser" method="post">
+            <form class="Button_User" action="/user/deleteUser" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <button>удалить аккаунт</button>
             </form>
-            <a class="Button_User" href="http://localhost:8080/logout"><button>выход</button></a>
+            <a class="Button_User" href="/logout"><button>выход</button></a>
         </div>
     </div>
 
@@ -40,7 +40,7 @@
 
     <div th:if="${msg.equals('addHike') || msg.equals('Введите данные корректно')}" class="Box_User">
         <h3>Создание похода</h3>
-        <form action="http://localhost:8080/user/addHike" method="post" th:object="${hikeRequest}">
+        <form action="/user/addHike" method="post" th:object="${hikeRequest}">
             <table>
                 <tr>
                     <td class="td_text_right_User">
@@ -87,7 +87,7 @@
                 <span class="ValidationError_User" th:if="${msg.equals('Введите данные корректно')}" th:text="${msg}"></span>
             </div>
         </form>
-        <a href="http://localhost:8080/user">
+        <a href="/user">
             <h3>
                 <button>отмена</button>
             </h3>
@@ -98,7 +98,7 @@
 
     <div th:if="${msg.equals('editUser') || msg.equals('Введите данные о походе корректно')}" th:class="Box_User">
         <h3>Редактирование аккаунта</h3>
-        <form action="http://localhost:8080/user/editUser" method="post" th:object="${userRequest}">
+        <form action="/user/editUser" method="post" th:object="${userRequest}">
             <table>
                 <tr>
                     <td class="td_text_right_User">
@@ -156,7 +156,7 @@
                 <span class="ValidationError_User" th:if="${msg.equals('Введите данные о походе корректно')}" th:text="${msg}"></span>
             </div>
         </form>
-        <a href="http://localhost:8080/user">
+        <a href="/user">
             <h3>
                 <button>отмена</button>
             </h3>
@@ -167,7 +167,7 @@
 
     <div th:if="${msg.equals('editHike') || msg.equals('Измените данные о походе корректно')}" class="Box_User">
         <h3>Редактирование похода</h3>
-        <form action="http://localhost:8080/user/editHike" method="post" th:object="${hikeRequest}">
+        <form action="/user/editHike" method="post" th:object="${hikeRequest}">
             <table>
                 <tr>
                     <td class="td_text_right_User">
@@ -215,7 +215,7 @@
                 <span class="ValidationError_User" th:if="${msg.equals('Измените данные о походе корректно')}" th:text="${msg}"></span>
             </div>
         </form>
-        <a href="http://localhost:8080/user">
+        <a href="/user">
             <h3>
                 <button>отмена</button>
             </h3>
@@ -245,20 +245,20 @@
                     <td class="td_tr_User" th:text="${hike.getDateFinish()}"></td>
                     <td class="td_tr_User" th:text="${hike.getNotes()}"></td>
                     <td class="td_tr_User td_Edit_User">
-                        <form action="http://localhost:8080/user" method="get">
+                        <form action="/user" method="get">
                             <input type="hidden" name="msg" th:value="${'editHike'}">
                             <input type="hidden" name="idHike" th:value="${hike.getId()}">
                             <button>редактировать</button>
                         </form>
                     </td>
                     <td class="td_tr_User td_View_User">
-                        <form method="get" action="http://localhost:8080/hike">
+                        <form method="get" action="/hike">
                             <input name="idHike" type="hidden" th:value="${hike.getId()}">
                             <button>просмотр</button>
                         </form>
                     </td>
                     <td class="td_tr_User td_Delete_User td_text_right_User">
-                        <form action="http://localhost:8080/user/deleteHike" method="post">
+                        <form action="/user/deleteHike" method="post">
                             <input name="idHike" type="hidden" th:value="${hike.getId()}">
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                             <button>удалить</button>
@@ -268,5 +268,8 @@
             </tbody>
         </table>
     </div>
+
+
+
   </body>
 </html>

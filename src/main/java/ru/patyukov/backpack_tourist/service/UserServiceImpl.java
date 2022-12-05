@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String login = securityContext.getAuthentication().getName();
 
-        User user = userRepository.findById(login).get();
+        User user = userRepository.findById(login).orElseThrow(() -> new BadRequestException("getUser redirect:/login"));
 
         UserDto userDto = userMapper.userToUserDto(user);
 
