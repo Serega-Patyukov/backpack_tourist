@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import ru.patyukov.backpack_tourist.facade.Facade;
+import ru.patyukov.backpack_tourist.web.constant.WebConstant;
 import ru.patyukov.backpack_tourist.web.request.EquipmentRequest;
 import ru.patyukov.backpack_tourist.web.response.EquipmentResponse;
 import ru.patyukov.backpack_tourist.web.response.HikeResponse;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/hike")
+@RequestMapping(WebConstant.VERSION_URL + "/hike")
 public class HikeController {
 
     private final Facade facade;
@@ -30,6 +31,8 @@ public class HikeController {
                          @RequestParam(required = false, defaultValue = "") String msg,
                          @RequestParam(required = false, defaultValue = "0") Long idHike,
                          @RequestParam(required = false, defaultValue = "0") Long idEquipment) {
+
+        model.addAttribute("VERSION_URL", WebConstant.VERSION_URL);
 
         HikeResponse hikeResponse = facade.getHikeResponse(idHike);
         model.addAttribute("hikeResponse", hikeResponse);
@@ -63,7 +66,7 @@ public class HikeController {
     @PostMapping("/deleteEquipment")
     public String deleteEquipment(Long idHike, Long idEquipment) {
         facade.deleteEquipment(idEquipment);
-        return "redirect:/hike?idHike=" + idHike;
+        return "redirect:" + WebConstant.VERSION_URL + "/hike?idHike=" + idHike;
     }
 
     @PostMapping("/editEquipment")
@@ -73,7 +76,7 @@ public class HikeController {
             return "hike";
         }
         facade.saveEquipment(equipmentRequest);
-        return "redirect:/hike?idHike=" + equipmentRequest.getIdHike();
+        return "redirect:" + WebConstant.VERSION_URL + "/hike?idHike=" + equipmentRequest.getIdHike();
     }
 
     @PostMapping("/addEquipment")
@@ -83,6 +86,6 @@ public class HikeController {
             return "hike";
         }
         facade.saveEquipment(equipmentRequest);
-        return "redirect:/hike?idHike=" + equipmentRequest.getIdHike();
+        return "redirect:" + WebConstant.VERSION_URL + "/hike?idHike=" + equipmentRequest.getIdHike();
     }
 }

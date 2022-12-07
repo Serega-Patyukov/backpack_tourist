@@ -1,11 +1,13 @@
 package ru.patyukov.backpack_tourist.web.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import ru.patyukov.backpack_tourist.facade.Facade;
+import ru.patyukov.backpack_tourist.web.constant.WebConstant;
 import ru.patyukov.backpack_tourist.web.request.HikeRequest;
 import ru.patyukov.backpack_tourist.web.request.UserRequest;
 
@@ -13,7 +15,7 @@ import javax.validation.Valid;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/user")
+@RequestMapping(WebConstant.VERSION_URL + "/user")
 public class UserController {
 
     private final Facade facade;
@@ -27,6 +29,8 @@ public class UserController {
     public void addModel(@RequestParam(required = false, defaultValue = "") String msg,
                          @RequestParam(required = false, defaultValue = "0") Long idHike,
                          Model model) {
+
+        model.addAttribute("VERSION_URL", WebConstant.VERSION_URL);
 
         model.addAttribute("userResponse", facade.getUserResponse());   // модель пользователя
         if ("editUser".equals(msg)) model.addAttribute("userRequest", facade.getUserRequest());   // модель для редактирования пользователя
@@ -47,10 +51,17 @@ public class UserController {
         }
     }
 
+    @GetMapping("/logout")
+    public String exit() {
+        SecurityContextHolder.clearContext();
+        return "redirect:" + WebConstant.VERSION_URL + "/home";
+    }
+
     @PostMapping("/deleteUser")
     public String deleteUser() {
         facade.deleteUser();
-        return "redirect:/home";
+        SecurityContextHolder.clearContext();
+        return "redirect:" + WebConstant.VERSION_URL + "/home";
     }
 
     @PostMapping("/editUser")
@@ -60,7 +71,7 @@ public class UserController {
             return "user";
         }
         facade.updateUser(userRequest);
-        return "redirect:/user";
+        return "redirect:" + WebConstant.VERSION_URL + "/user";
     }
 
     @PostMapping("/addHike")
@@ -70,13 +81,13 @@ public class UserController {
             return "user";
         }
         facade.saveHike(hikeRequest);
-        return "redirect:/user";
+        return "redirect:" + WebConstant.VERSION_URL + "/user";
     }
 
     @PostMapping("/deleteHike")
     public String deleteHike(Long idHike) {
         facade.deleteHike(idHike);
-        return "redirect:/user";
+        return "redirect:" + WebConstant.VERSION_URL + "/user";
     }
 
     @PostMapping("/editHike")
@@ -88,6 +99,6 @@ public class UserController {
         }
 
         facade.saveHike(hikeRequest);
-        return "redirect:/user";
+        return "redirect:" +WebConstant.VERSION_URL + "/user";
     }
 }

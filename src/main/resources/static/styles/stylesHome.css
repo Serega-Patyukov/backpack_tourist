@@ -14,7 +14,7 @@
     /*следующ ая строка размещает дивы друг за другом*/
     display: flex;
     /*следующая строка разносит все элементы в стороны*/
-    justify-content: right;
+    justify-content: space-between;
     /*следующая строка разносит элементы на одинаковые расстояния*/
     /*justify-content: space-around;*/
     /*тут все выравнивается по горизонтали по центру*/
@@ -43,7 +43,7 @@
 }
 
 .Description_Home {
-    padding: 2px;
+    padding: 20px;
 }
 
 

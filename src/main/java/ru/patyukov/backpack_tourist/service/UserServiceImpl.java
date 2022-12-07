@@ -11,6 +11,7 @@ import ru.patyukov.backpack_tourist.entity.User;
 import ru.patyukov.backpack_tourist.exception.BadRequestException;
 import ru.patyukov.backpack_tourist.mapper.UserMapper;
 import ru.patyukov.backpack_tourist.repository.UserRepository;
+import ru.patyukov.backpack_tourist.web.constant.WebConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto saveUser(UserDto userDto) {
         if (existsById(userDto.getLogin())) {
-            throw new BadRequestException("addUser redirect:/home");
+            throw new BadRequestException("addUser redirect:" + WebConstant.VERSION_URL + "/home");
         }
 
         User user = userMapper.userDtoToUser(userDto);
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String login = securityContext.getAuthentication().getName();
 
-        User user = userRepository.findById(login).orElseThrow(() -> new BadRequestException("getUser redirect:/login"));
+        User user = userRepository.findById(login).get();
 
         UserDto userDto = userMapper.userToUserDto(user);
 

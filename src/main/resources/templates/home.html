@@ -13,19 +13,23 @@
 
 
         <div class="Box_Home Menu_Home">
-            <form action="/user" method="get">
-                <span class="Button_Home"><button>вход</button></span>
+            <form th:action="${VERSION_URL + '/login'}" method="get">
+                <span>логин: <input type="text" name="login"></span>
+                <span>пароль: <input type="password" name="password"></span>
+                <span><button>вход</button></span>
+                <span class="ValidationError_Home" th:if="${msg.equals('error')}" th:text="${'Неверные учетные данные пользователя'}"></span>
+
             </form>
-            <form action="/home" method="get">
+            <form th:action="${VERSION_URL + '/home'}" method="get">
                 <input type="hidden" name="msg" value="reg">
-                <span class="Button_Home"><button>регистрация</button></span>
+                <span><button>регистрация</button></span>
             </form>
         </div>
 
 
 
-        <div class="Box_Home" th:if="${!msg.isEmpty()}">
-            <form action="/home" method="post" th:object="${userRequest}">
+        <div class="Box_Home" th:if="${!msg.isEmpty() && !msg.equals('error')}">
+            <form th:action="${VERSION_URL + '/home'}" method="post" th:object="${userRequest}">
                 <h3>Регистрация</h3>
                 <table>
                     <tr>
@@ -83,7 +87,7 @@
                     <span class="ValidationError_Home" th:if="${msg.equals('Введите учетные данные корректно')}" th:text="${msg}"></span>
                 </div>
             </form>
-            <a href="/home">
+            <a th:href="${VERSION_URL + '/home'}">
                 <h3>
                     <button>отмена</button>
                 </h3>
@@ -100,7 +104,16 @@
 
         <div class="Box_Home Description_Home">
             <h3>
-                <p>Тут будет описание приложения !!!</p>
+                <p>Приложение создано для туристов, которые все еще хранят информацию о своих походах на листке бумаги.</p>
+                <p>Приложение позволяет создать:</p>
+                <ul>
+                    <li>аккаунт;</li>
+                    <li>поход с описанием;</li>
+                    <li>список снаряжения для каждого похода.</li>
+                </ul>
+                <p>Приложение находится на стадии разработки и тестирования. Поэтому могут возникать сбои.</p>
+                <p>Приложением можно пользоваться в ознакомительных целях.</p>
+                <p>Работа над этой версией еще ведется.</p>
             </h3>
         </div>
 

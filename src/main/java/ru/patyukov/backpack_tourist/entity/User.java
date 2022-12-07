@@ -1,6 +1,7 @@
 package ru.patyukov.backpack_tourist.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,12 +22,14 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "user",
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     @Column(nullable = false)
     private List<Role> authorities;
 
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "user",
             cascade = CascadeType.ALL)

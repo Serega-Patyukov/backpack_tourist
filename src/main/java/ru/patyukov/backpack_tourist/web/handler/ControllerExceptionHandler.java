@@ -23,10 +23,6 @@ public class ControllerExceptionHandler {
             model.addAttribute("msg", "Логин занят");
         }
 
-        if ("getUser".equals(msgSplit[0])) {
-
-        }
-
         return msgSplit[1];
     }
 
